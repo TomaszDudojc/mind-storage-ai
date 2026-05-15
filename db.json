@@ -1,98 +1,27 @@
 {
   "notes": [
     {
-      "id": "455a",
-      "userId": "0b38",
-      "time": "10.11.2024, 21:45:17",
-      "title": "note 1",
-      "content": "pierwsza notatka, aby sprawadzić działanie programu, może trochę nudna i przydługa, ale zawsze coś..",
-      "userEmail": "ada@gmail.com"
-    },
-    {
-      "id": "8d08",
-      "userId": "0b38",
-      "time": "10.11.2024, 21:45:37",
-      "title": "druga ",
-      "content": "adfasfsafsadfsa",
-      "userEmail": "ada@gmail.com"
-    },
-    {
-      "id": "8cd6",
-      "userId": "0b38",
-      "time": "10.11.2024, 21:46:19",
-      "title": "4",
-      "content": "dfasf\nfasdfa\nasfdfas\ndfaasd",
-      "userEmail": "ada@gmail.com"
-    },
-    {
-      "id": "6488",
-      "userId": "568a",
-      "time": "10.11.2024, 21:48:09",
+      "id": "8438",
+      "userId": "0d6e",
+      "time": "15.05.2026, 09:08:08",
       "title": "pierwsza",
-      "content": "afdasfasfdasf\nasfasdfasdfa\nbvxcbxcb\naffdsgfdgfsdg",
-      "userEmail": "tom@gmail.com"
+      "content": "udana rejestracja\n",
+      "userEmail": "user1@com"
     },
     {
-      "id": "d40b",
-      "userId": "bcd3",
-      "time": "10.11.2024, 21:57:37",
-      "title": "fasdfsa",
-      "content": "dfasfsa",
-      "userEmail": "ola11@gmail.com"
-    },
-    {
-      "id": "ed1f",
-      "userId": "8627",
-      "time": "5.01.2025, 23:13:43",
-      "title": "po co Note Storage?",
-      "content": "Pozwoli każdemu w wygodnie redagować swoje notatki i w uporządkowany sposób je przechowywać.",
-      "userEmail": "tomek@gmail.com"
-    },
-    {
-      "id": "9791",
-      "userId": "8627",
-      "time": "5.01.2025, 23:15:00",
-      "title": "zachęcam do korzystania ...",
-      "content": "... i mam nadzieję, że się przyda.",
-      "userEmail": "tomek@gmail.com"
-    },
-    {
-      "id": "48c5",
-      "userId": "8627",
-      "time": "5.01.2025, 23:16:01",
-      "title": "życzę ...",
-      "content": "udanej zabawy podczas testowania :)",
-      "userEmail": "tomek@gmail.com"
-    },
-    {
-      "id": "1dbd",
-      "userId": "ceb4",
-      "time": "14.05.2026, 09:48:00",
-      "title": "pierwsza notka",
-      "content": "udało się zalogować \n",
-      "userEmail": "user@gmial"
+      "id": "c0e1",
+      "userId": "0d6e",
+      "time": "15.05.2026, 09:08:39",
+      "title": "druga",
+      "content": "poprawne logowanie\n",
+      "userEmail": "user1@com"
     }
   ],
   "users": [
     {
-      "id": "0b38",
-      "email": "ada@gmail.com",
-      "hashedPassword": "$2a$10$eKF5UlXvOQ4uFEybEXNt6e5lNKSq0Q4l6PL1MUDeXl71v2dFH4eQS"
-    },
-    {
-      "id": "568a",
-      "email": "tom@gmail.com",
-      "hashedPassword": "$2a$10$W9CPaCYva4cu9kF3KgVJmOvuL8fA4MfO5gclIONDjZ0/3VezhuOL2"
-    },
-    {
-      "id": "8627",
-      "email": "tomek@gmail.com",
-      "hashedPassword": "$2a$10$I/TNOXi9mn5JeMG/y7oww.JIPjznNPLD63grndLI1REAiPliEb.Lu"
-    },
-    {
-      "id": "ceb4",
-      "email": "user@gmial",
-      "hashedPassword": "$2a$10$ftk6hR0D8fxUDNMALkc5meXfmesH0LyhRfmDCQbRrpExTEF7VS42u"
+      "id": "0d6e",
+      "email": "user1@com",
+      "hashedPassword": "$2a$10$51GCYbW4C6bQoyTCSrQyduK1brWYT9TKTuZW.zdlyevXGFp5rN6r."
     }
   ]
 }

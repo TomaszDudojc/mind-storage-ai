@@ -3,19 +3,19 @@
   margin: 0;
   box-sizing: border-box;
 }
+
 html {
   font-family: "Montserrat", sans-serif;
 }
+
 body {
   background: #eee;
   background-image: url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
   padding: 0 16px;
 }
 
-header {
-  /*background-color: #f5ba13;*/
-  background-color:#487eb0;
-  /*margin: auto -16px;*/
+header {  
+  background-color: #487eb0;  
   margin: auto -16px 80px -16px;
   padding: 16px 32px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
@@ -25,13 +25,36 @@ header h1 {
   color: #fff;
   font-family: "McLaren", cursive;
   font-weight: 200;
+  display: flex;
+  align-items: center;  
+  gap: 12px;  
+}
+
+.ai-glow-icon {
+  font-size: 34px;  
+  color: #ffffff;
+  display: block;  
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.6)) drop-shadow(0 0 10px rgba(0, 210, 255, 0.3));  
+  animation: pulseGlow 3s infinite ease-in-out;
+}
+
+@keyframes pulseGlow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 8px rgba(0, 210, 255, 0.2));
+    transform: scale(1);
+  }
+  50% {    
+    filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.9)) drop-shadow(0 0 18px rgba(0, 210, 255, 0.6));
+    transform: scale(1.06);
+  }
 }
 
 footer {
   position: fixed;
-	bottom: 0;
-	left: 0;
-  text-align: center; 
+  bottom: 0;
+  left: 0;
+  text-align: center;
   width: 100%;
   height: 2.5rem;
 }
@@ -62,11 +85,13 @@ footer p {
   margin: 16px;
   float: left;
 }
+
 .note h1 {
   font-size: 1.1em;
   margin-bottom: 6px;
   margin-top: 16px;
 }
+
 .note p {
   font-size: 1.1em;
   margin-bottom: 10px;
@@ -82,7 +107,7 @@ footer p {
   padding: 10px;
   width: 90%;
   margin: auto;
-  color: #487eb0;  
+  color: #487eb0;
 }
 
 .note button {
@@ -99,7 +124,7 @@ footer p {
 }
 
 .form,
-.googleLink{
+.googleLink {
   position: relative;
   width: 480px;
   margin: 10px auto 2px auto;
@@ -108,6 +133,7 @@ footer p {
   border-radius: 7px;
   box-shadow: 0 1px 5px rgb(138, 137, 137);
 }
+
 form input,
 form textarea {
   width: 100%;
@@ -118,6 +144,7 @@ form textarea {
   font-family: inherit;
   resize: none;
 }
+
 form button {
   position: absolute;
   right: 18px;
@@ -143,6 +170,7 @@ form.create-note {
   border-radius: 7px;
   box-shadow: 0 1px 5px rgb(138, 137, 137);
 }
+
 form.create-note input,
 form.create-note textarea {
   width: 100%;
@@ -154,11 +182,12 @@ form.create-note textarea {
   resize: none;
   margin-top: 10px;
 }
+
 form.create-note button {
   position: absolute;
-  
-   /*background: #f5ba13;*/
-   background: #487eb0;
+
+  /*background: #f5ba13;*/
+  background: #487eb0;
   color: #fff;
   border: none;
   border-radius: 50%;
@@ -169,7 +198,7 @@ form.create-note button {
   outline: none;
 }
 
-.button:hover{
+.button:hover {
   background: #487eb0;
   color: #fff;
 }
@@ -186,7 +215,7 @@ form.create-note button {
 .fromContainer {
   position: relative;
   width: 480px;
-  margin: 5px auto 2px auto;  
+  margin: 5px auto 2px auto;
   text-align: center;
 }
 
@@ -198,7 +227,7 @@ form.create-note button {
   border-radius: 7px;
   cursor: pointer;
   outline: none;
-  margin: 30px auto 2px auto;  
+  margin: 30px auto 2px auto;
   width: 480px;
   padding: 15px;
   box-shadow: 0 1px 5px rgb(138, 137, 137);
@@ -208,7 +237,7 @@ form.create-note button {
 .logoutButton {
   /*position: fixed;
 	right: 20px;*/
-  margin-left: 70%; 
+  margin-left: 70%;
   background: #487eb0;
   color: #fff;
   border: none;
@@ -217,12 +246,12 @@ form.create-note button {
   outline: none;
   border-radius: 50%;
   width: 56px;
-  height: 56px;  
+  height: 56px;
 }
 
-.author { 
+.author {
   color: grey;
   font-size: 14px;
   text-align: right;
-  margin-top: 5px;  
+  margin-top: 5px;
 }
