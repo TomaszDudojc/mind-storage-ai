@@ -1,6 +1,5 @@
 import React from "react";
-//import EditNoteIcon from '@mui/icons-material/EditNote';
-import { LuBrainCircuit } from "react-icons/lu"; // Mózg z liniami obwodów drukowanych (bardzo technologiczny/AI)
+import { LuBrainCircuit } from "react-icons/lu";
 import SettingsPowerIcon from '@mui/icons-material/SettingsPower';
 
 function Header(props) {
