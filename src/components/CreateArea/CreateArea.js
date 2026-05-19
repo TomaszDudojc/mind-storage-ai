@@ -16,53 +16,30 @@ function CreateArea(props) {
 
   const [isExpanded, setExpanded] = useState(false);
 
-  // NAPRAWA BŁĘDU: Zegar musi być w useEffect, inaczej tworzy tysiące interwałów i wiesza Reacta
+  // POPRAWKA ZEGARA: Zamknięty w useEffect z funkcją czyszczącą (cleanup)
   useEffect(() => {
-    mounted.current = true;
-    const timer = setInterval(() => {
-      if (mounted.current) {
-        setTime(new Date().toLocaleString());
-      }
+    const interval = setInterval(() => {
+      setTime(new Date().toLocaleString());
     }, 1000);
 
-    return () => {
-      mounted.current = false;
-      clearInterval(timer); // Czyszczenie pamięci przy demontażu
-    };
+    return () => clearInterval(interval); // Czyszczenie zegara przy opuszczeniu komponentu
   }, []);
 
-  // Alert znikający po 1 sekundzie
+  // POPRAWKA ALERTU: Prostszy zapis bez użycia mounted.current
   useEffect(() => {
     if (alert) {
-      const timeout = setTimeout(() => {
-        if (mounted.current) {
-          setAlert(false);
-        }
-      }, 1000);
-      return () => clearTimeout(timeout);
+      const timer = setTimeout(() => setAlert(false), 1000);
+      return () => clearTimeout(timer);
     }
   }, [alert]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Tworzymy obiekt nowej notatki do przekazania na ekran
-    const newNote = { time, title, content };
-
     setItem(userId, time, title, content, userEmail)
       .then(() => {
-        if (mounted.current) {
-          // KLUCZOWA NAPRAWA: Jeśli rodzic przekazał funkcję odświeżającą listę, wywołujemy ją
-          if (props.onAdd) {
-            props.onAdd(newNote);
-          }
-          setTitle('');
-          setContent('');
-          setAlert(true);
-        }
-      })
-      .catch((err) => {
-        console.error("Error saving note:", err);
+        setTitle('');
+        setContent('');
+        setAlert(true);
       });
   };
 
@@ -71,7 +48,7 @@ function CreateArea(props) {
   }
 
   return (
-    <div>      
+    <div>
       <div className="form-wrapper">
         <form className="create-note" onSubmit={handleSubmit}>
           <input className="time" name="time" value={time} disabled />
