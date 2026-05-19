@@ -161,14 +161,19 @@ form button {
   outline: none;
 }
 
+.form-wrapper {
+  position: relative; 
+  width: 480px;      
+  margin: 30px auto 20px auto; 
+}
+
 form.create-note {
-  position: relative;
-  width: 480px;
-  margin: 30px auto 20px auto;
+  width: 100%;       
   background: #fff;
   padding: 15px;
   border-radius: 7px;
   box-shadow: 0 1px 5px rgb(138, 137, 137);
+  box-sizing: border-box; 
 }
 
 form.create-note input,
@@ -185,14 +190,15 @@ form.create-note textarea {
 
 form.create-note button {
   position: absolute;
-
+  right: 35px;
+  bottom: -24px;
   /*background: #f5ba13;*/
   background: #487eb0;
   color: #fff;
   border: none;
   border-radius: 50%;
-  width: 36px;
-  height: 36px;
+  width: 48px;
+  height: 48px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   cursor: pointer;
   outline: none;

@@ -24,12 +24,13 @@
 }
 
 /* --- CHAT TOGGLER --- */
-.chatbot-scope .chatbot-toggler {  
-  top: -10%;
-  right: -5%;
+.chatbot-scope .chatbot-toggler {
+  position: absolute;
+  bottom: -24px;
+  right: -24px;
   border: none;
-  height: 55px;
-  width: 55px;
+  height: 48px;
+  width: 48px;
   display: flex;
   cursor: pointer;
   border-radius: 50%;

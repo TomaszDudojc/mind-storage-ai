@@ -1,11 +1,10 @@
 import { useRef } from "react";
 
-const Chatform = ({ chatHistory, setChatHistory, generateBotResponse }) => {
+const ChatForm = ({ chatHistory, setChatHistory, generateBotResponse }) => {
     const inputRef = useRef();
 
     const handleFormSubmit = (e) => {
-        if (e && e.preventDefault) e.preventDefault();
-        if (e && e.stopPropagation) e.stopPropagation();
+        e.preventDefault();
         const userMessage = inputRef.current.value.trim();
         if (!userMessage) return;
         inputRef.current.value = "";
@@ -23,16 +22,11 @@ const Chatform = ({ chatHistory, setChatHistory, generateBotResponse }) => {
     }
 
     return (
-        <div className="chat-form">
-            <input ref={inputRef} type="text" placeholder="Wiadomość..." className="message-input"
-                required onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
-                        handleFormSubmit(e);
-                    }
-                }} />
-            <button onClick={handleFormSubmit} className="material-symbols-rounded">arrow_upward</button>
-        </div>
+        <form action="#" className="chat-form" onSubmit={handleFormSubmit}>
+            <input ref={inputRef} type="text" placeholder="Wiadomość..." className="message-input" required />
+            <button className="material-symbols-rounded">arrow_upward</button>
+        </form>
     );
 };
 
-export default Chatform
+export default ChatForm
