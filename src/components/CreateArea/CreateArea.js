@@ -10,22 +10,21 @@ function CreateArea(props) {
   const [content, setContent] = useState("");
   const [alert, setAlert] = useState(false);
   const [time, setTime] = useState(new Date().toLocaleString());
-  const mounted = useRef(true);
+  //const mounted = useRef(true); // do sprawdzenia
   const userId = props.userId;
   const userEmail = props.userEmail;
 
   const [isExpanded, setExpanded] = useState(false);
-
-  // POPRAWKA ZEGARA: Zamknięty w useEffect z funkcją czyszczącą (cleanup)
+  
   useEffect(() => {
     const interval = setInterval(() => {
       setTime(new Date().toLocaleString());
     }, 1000);
 
-    return () => clearInterval(interval); // Czyszczenie zegara przy opuszczeniu komponentu
+    return () => clearInterval(interval); 
   }, []);
 
-  // POPRAWKA ALERTU: Prostszy zapis bez użycia mounted.current
+  
   useEffect(() => {
     if (alert) {
       const timer = setTimeout(() => setAlert(false), 1000);
