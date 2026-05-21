@@ -6,44 +6,70 @@ import './Chatbot.css';
 
 const apiVersion = "gemini-flash-latest";
 
-// Get API key from env file for Vite or CRA (Create React App)
-const getApiKey = () => {  
-  if (typeof import.meta !== 'undefined' && import.meta.env) {
-    return import.meta.env.VITE_API_KEY;
-  } 
-  return process.env.REACT_APP_API_KEY || null;
+const getApiKey = () => {
+    if (typeof import.meta !== 'undefined' && import.meta.env) {
+        return import.meta.env.VITE_API_KEY;
+    }
+    return process.env.REACT_APP_API_KEY || null;
 };
 
 const apiKey = getApiKey();
 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${apiVersion}:streamGenerateContent?alt=sse`;
 
-const Chatbot = () => {
+// Odbieramy nowe propsy kontrolne i tekst z notatek
+const Chatbot = ({ id, activeChatId, setActiveChatId, noteContext }) => {
     const [chatHistory, setChatHistory] = useState([]);
-    const [showChatbot, setShowChatbot] = useState(false);
     const chatBodyRef = useRef();
+
+    // NOWOŚĆ: Sprawdzamy, czy TO konkretne okienko ma być teraz otwarte
+    const isThisChatOpen = activeChatId === id;
+
+    // NOWOŚĆ: Obsługa kliknięcia w Twój wbudowany przycisk togglera
+    const handleToggleChat = () => {
+        if (isThisChatOpen) {
+            setActiveChatId(null); // Zamyka czat
+        } else {
+            setActiveChatId(id); // Otwiera czat dla tej notatki / obszaru tworzenia
+        }
+    };
+
+    // NOWOŚĆ: Reagowanie na otwarcie czatu i wstrzykiwanie roli Coacha
+    useEffect(() => {
+        if (isThisChatOpen && noteContext) {
+            const systemPrompt = {
+                role: "user",
+                text: `Jesteś profesjonalnym Coachem Rozwoju Osobistego. 
+Użytkownik otworzył właśnie wpis z pamiętnika. 
+Tytuł wpisu: "${noteContext.title}"
+Data: ${noteContext.time}
+Treść: "${noteContext.content}"
+
+Przeanalizuj krótko ten tekst. Odpowiedz bardzo krótko (max 2-3 zdania), przywitaj się ciepło, nawiąż do tego co napisał i zadaj jedno głębokie pytanie coachingowe, które skłoni go do refleksji.`
+            };
+
+            setChatHistory([systemPrompt]);
+            generateBotResponse([systemPrompt]);
+        } else if (!isThisChatOpen) {
+            setChatHistory([]); // Czyszczenie jednorazowej sesji przy zamknięciu
+        }
+    }, [isThisChatOpen]);
 
     const generateBotResponse = async (history) => {
         let accumulatedText = "";
 
-        // Helper function to update chat history (handles streaming and errors)
         const updateHistory = (text, isError = false) => {
             setChatHistory((prev) => {
                 const lastMsgIndex = prev.length - 1;
-
-                // If it's a regular streaming update (not an error) and last message is from model
                 if (!isError && lastMsgIndex >= 0 && prev[lastMsgIndex].role === "model" && !prev[lastMsgIndex].isError) {
                     const newHistory = [...prev];
                     newHistory[lastMsgIndex] = { ...newHistory[lastMsgIndex], text };
                     return newHistory;
                 }
-
-                // For errors or the very first chunk: remove "Thinking..." and add new message
                 const filtered = prev.filter((msg) => msg.text !== "Myślę...");
                 return [...filtered, { role: "model", text, isError }];
             });
         };
 
-        // Format chat history for the API
         const formattedHistory = history.map(({ role, text }) => ({ role, parts: [{ text }] }));
 
         const requestOptions = {
@@ -57,13 +83,11 @@ const Chatbot = () => {
 
         try {
             const response = await fetch(apiUrl, requestOptions);
-
             if (!response.ok) {
                 const data = await response.json();
                 throw new Error(data.error.message || "Something went wrong!");
             }
 
-            // Handle data streaming
             const reader = response.body.getReader();
             const decoder = new TextDecoder();
 
@@ -82,12 +106,11 @@ const Chatbot = () => {
 
                             if (textFragment) {
                                 accumulatedText += textFragment;
-                                // Remove formatting and update UI in real-time
                                 const cleanedText = accumulatedText.replace(/\*\* (.*?)\*\*/g, "$1").trim();
                                 updateHistory(cleanedText);
                             }
                         } catch (e) {
-                            continue; // Ignore errors from incomplete JSON fragments
+                            continue;
                         }
                     }
                 }
@@ -98,17 +121,21 @@ const Chatbot = () => {
     };
 
     useEffect(() => {
-        // Auto-scroll whenever chat history updates
-        chatBodyRef.current.scrollTo({ top: chatBodyRef.current.scrollHeight, behavior: "smooth" });
+        if (chatBodyRef.current) {
+            chatBodyRef.current.scrollTo({ top: chatBodyRef.current.scrollHeight, behavior: "smooth" });
+        }
     }, [chatHistory]);
 
-    return (
-        /* Main wrapper with a unique scope class to prevent style leaks */
-        <div className={`chatbot-scope ${showChatbot ? "show-chatbot" : ""}`}>
+    // Ukrywamy instrukcje systemowe dla Gemini przed oczami użytkownika
+    const visibleHistory = chatHistory.filter((_, idx) => idx > 0);
 
-            {/* Chat Toggler Button - Changed from ID to class for reusability */}
+    return (
+        /* ZMIANA: show-chatbot sterowane jest teraz zmienną isThisChatOpen */
+        <div className={`chatbot-scope ${isThisChatOpen ? "show-chatbot" : ""}`}>
+
+            {/* Przycisk Toglera z Twoim wbudowanym nasłuchiwaniem kliknięcia */}
             <button
-                onClick={() => setShowChatbot(prev => !prev)}
+                onClick={handleToggleChat}
                 className="chatbot-toggler"
             >
                 <span className="material-symbols-rounded">mode_comment</span>
@@ -116,34 +143,31 @@ const Chatbot = () => {
             </button>
 
             <div className="chatbot-popup">
-                {/* Chatbot Header */}
                 <div className="chat-header">
                     <div className="header-info">
                         <ChatbotIcon />
-                        <h2 className="logo-text">Chatbot</h2>
+                        <h2 className="logo-text">Coach AI</h2> {/* Zmiana nazwy na Coach AI */}
                     </div>
-                    {/* Minimize button */}
-                    <button onClick={() => setShowChatbot(prev => !prev)} className="material-symbols-rounded">
+                    <button onClick={handleToggleChat} className="material-symbols-rounded">
                         keyboard_arrow_down
                     </button>
                 </div>
 
-                {/* Chatbot Body - Contains the conversation scroll area */}
                 <div ref={chatBodyRef} className="chat-body">
-                    <div className="message bot-message">
-                        <ChatbotIcon />
-                        <p className="message-text">
-                            Cześć! <br /> W czym mogę Ci dzisiaj pomóc?
-                        </p>
-                    </div>
+                    {visibleHistory.length === 0 && (
+                        <ChatMessage
+                            chat={{
+                                role: "model",
+                                text: "Analizuję Twój wpis... Zaraz zaczynamy sesję."
+                            }}
+                        />
+                    )}
 
-                    {/* Render the chat history dynamically */}
-                    {chatHistory.map((chat, index) => (
+                    {visibleHistory.map((chat, index) => (
                         <ChatMessage key={index} chat={chat} />
                     ))}
                 </div>
 
-                {/* Chatbot Footer - Input field and send button */}
                 <div className="chat-footer">
                     <ChatForm
                         chatHistory={chatHistory}

@@ -8,10 +8,13 @@ function Home(props) {
   const [notes, setNotes] = useState([]);
   const mounted = useRef(true);
 
+  // NOWOŚĆ: Globalny stan kontrolujący, który chatbot jest obecnie otwarty
+  // Może przyjąć wartość: id_notatki (string/number), "create-area" lub null
+  const [activeChatId, setActiveChatId] = useState(null);
+
   const userNotes = notes.filter(function(item) {
-    return item.userId==props.currentUserId;
+    return item.userId == props.currentUserId;
   });
-  
 
   useEffect(() => {
     mounted.current = true;    
@@ -29,12 +32,37 @@ function Home(props) {
 
   function deleteNote(id) { 
     deleteItem(id);   
+    // Jeśli usuwana notatka miała otwarty chat, zamknij go
+    if (activeChatId === id) {
+      setActiveChatId(null);
+    }
   }
 
   return (
     <div>        
-    <CreateArea userId={props.currentUserId} userEmail={props.currentUserEmail}/>
-    {userNotes.map(item => <Note key={item.id} id={item.id} time={item.time} title={item.title} content={item.content} userEmail={item.userEmail} onDelete={deleteNote} />)}
+      {/* Przekazujemy propsy sterujące czatem do obszaru tworzenia */}
+      <CreateArea 
+        userId={props.currentUserId} 
+        userEmail={props.currentUserEmail}
+        id="create-area"
+        activeChatId={activeChatId}
+        setActiveChatId={setActiveChatId}
+      />
+      
+      {/* Przekazujemy propsy sterujące oraz kontekst do istniejących notatek */}
+      {userNotes.map(item => (
+        <Note 
+          key={item.id} 
+          id={item.id} 
+          time={item.time} 
+          title={item.title} 
+          content={item.content} 
+          userEmail={item.userEmail} 
+          onDelete={deleteNote} 
+          activeChatId={activeChatId}
+          setActiveChatId={setActiveChatId}
+        />
+      ))}
     </div>
   );
 }

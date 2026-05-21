@@ -14,11 +14,22 @@ function Note(props) {
         <h1>{props.title}</h1>
         <p>{props.content}</p>
         <div className="author">🖋 {props.userEmail}</div>
-        <button className="note button" onClick={handleClick}><DeleteIcon /></button>        
-        <Chatbot />
+        <button className="note button" onClick={handleClick}><DeleteIcon /></button>
+        {/* NOWOŚĆ: Przekazujemy sterowanie i tekst do bota */}
+        <Chatbot
+          id={props.id}
+          activeChatId={props.activeChatId}
+          setActiveChatId={props.setActiveChatId}
+          noteContext={{
+            title: props.title,
+            content: props.content,
+            time: props.time
+          }}
+        />
       </div>
     </div>
   );
 }
 
 export default Note;
+
