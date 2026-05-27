@@ -10,6 +10,8 @@ import Home from "../Home/Home";
 
 function App() {
   const { token, setToken } = useToken();
+  const loggedUserFirstNameString = localStorage.getItem('loggedUserFirstName');
+  const loggedUserFirstName = JSON.parse(loggedUserFirstNameString);
   const loggedUserEmailString = localStorage.getItem('loggedUserEmail');
   const loggedUserEmail = JSON.parse(loggedUserEmailString);
   const loggedUserIdString = localStorage.getItem('loggedUserId');  
@@ -29,11 +31,11 @@ function App() {
       <Header isLogged="true"/>          
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home currentUserId = {loggedUserId} currentUserEmail={loggedUserEmail}/>} /> 
+          <Route path="/" element={<Home currentUserFirstName = {loggedUserFirstName} currentUserId = {loggedUserId} currentUserEmail={loggedUserEmail}/>} /> 
           <Route path="/dashboard" element={<Dashboard />} />           
           <Route path="/preferences" element={<Preferences />} /> 
         </Routes>
-      </BrowserRouter>
+      </BrowserRouter>      
       <Footer />
     </div>
   );    

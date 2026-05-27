@@ -3,13 +3,13 @@ export function getNotes() {
       .then(data => data.json())
   }
 
-export function setItem(userId, time, title, content, userEmail) {
+export function setItem(userId, time, title, content, userEmail, firstName) {
     return fetch('http://localhost:3333/notes', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({userId, time, title, content, userEmail})
+      body: JSON.stringify({userId, time, title, content, userEmail, firstName})
     })
       .then(data => data.json())
   }
