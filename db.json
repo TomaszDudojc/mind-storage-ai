@@ -1,35 +1,45 @@
 {
   "notes": [
     {
-      "id": "8438",
-      "userId": "0d6e",
-      "time": "15.05.2026, 09:08:08",
-      "title": "pierwsza",
-      "content": "udana rejestracja\n",
-      "userEmail": "user1@com"
+      "id": "bdca",
+      "userId": "f641",
+      "time": "27.05.2026, 09:22:24",
+      "title": "udane logowanie",
+      "content": "do aplikacji react",
+      "userEmail": "tomek@com",
+      "firstName": "Tomek"
     },
     {
-      "id": "c0e1",
-      "userId": "0d6e",
-      "time": "15.05.2026, 09:08:39",
-      "title": "druga",
-      "content": "poprawne logowanie\n",
-      "userEmail": "user1@com"
+      "id": "fb86",
+      "userId": "8f59",
+      "time": "27.05.2026, 09:53:05",
+      "title": "piękny dzień",
+      "content": "super pogoda",
+      "userEmail": "ola@com",
+      "firstName": "Ola"
     },
     {
-      "id": "9e24",
-      "userId": "0d6e",
-      "time": "18.05.2026, 09:46:43",
-      "title": "pogoda dzisiaj",
-      "content": "Słonecznie, ciepło i bardzo przyjemnie.",
-      "userEmail": "user1@com"
+      "id": "6ddf",
+      "userId": "8f59",
+      "time": "27.05.2026, 09:53:29",
+      "title": "wyjazd w góry",
+      "content": "warto zaplanować go z wyprzedzeniem",
+      "userEmail": "ola@com",
+      "firstName": "Ola"
     }
   ],
   "users": [
     {
-      "id": "0d6e",
-      "email": "user1@com",
-      "hashedPassword": "$2a$10$51GCYbW4C6bQoyTCSrQyduK1brWYT9TKTuZW.zdlyevXGFp5rN6r."
+      "id": "f641",
+      "firstName": "Tomek",
+      "email": "tomek@com",
+      "hashedPassword": "$2a$10$Yc0sC6hRCvuugpt..uedH.jFSjbRj5HCLSAJhViDs9/7JxtYQ4xRW"
+    },
+    {
+      "id": "8f59",
+      "firstName": "Ola",
+      "email": "ola@com",
+      "hashedPassword": "$2a$10$1WxAvmcEeClCn6kBhi/C2u7.yozkh2Zf4P6zkOgrM7A.2N77Mg4/q"
     }
   ]
 }

@@ -12,6 +12,7 @@ function CreateArea(props) {
   const [time, setTime] = useState(new Date().toLocaleString());
   const userId = props.userId;
   const userEmail = props.userEmail;
+  const userFirstName = props.userFirstName;
 
   const [isExpanded, setExpanded] = useState(false);
 
@@ -32,14 +33,13 @@ function CreateArea(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setItem(userId, time, title, content, userEmail)
+    setItem(userId, time, title, content, userEmail, userFirstName)
       .then(() => {
         setTitle('');
         setContent('');
-        setAlert(true);
-        // POPRAWKA: Sprawdzamy bezpośrednio, czy otwarty chat to nasz obszar tworzenia
+        setAlert(true);        
         if (props.activeChatId === "create-area") {
-          props.setActiveChatId(null); // Zamykamy czat
+          props.setActiveChatId(null); 
         }
       });
   };
@@ -56,8 +56,7 @@ function CreateArea(props) {
           <input className="time" name="time" value={time} disabled />
           {isExpanded && (
             <input name="title" onChange={e => setTitle(e.target.value)} value={title} placeholder="Tytuł wpisu..." required />
-          )}
-          {/* Zmiana placeholderu na styl pamiętnika rozwoju osobistego */}
+          )}          
           <textarea
             name="content"
             onClick={expand}
@@ -72,12 +71,7 @@ function CreateArea(props) {
               <AddIcon />
             </Fab>
           </Zoom>
-        </form>
-
-        {/* 
-          NOWOŚĆ: Przekazujemy propsy sterujące globalnym stanem chatu 
-          oraz na bieżąco przekazujemy wpisywany przez użytkownika tekst 
-        */}
+        </form>      
         <Chatbot
           id={props.id}
           activeChatId={props.activeChatId}
@@ -85,7 +79,8 @@ function CreateArea(props) {
           noteContext={{
             title: title || "Brak tytułu",
             content: content || "Użytkownik jeszcze nic nie napisał, zapytaj go jak mija mu dzień.",
-            time: time
+            time: time,
+            userName: props.userFirstName
           }}
         />
       </div>

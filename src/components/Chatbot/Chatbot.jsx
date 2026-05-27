@@ -16,41 +16,37 @@ const getApiKey = () => {
 const apiKey = getApiKey();
 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${apiVersion}:streamGenerateContent?alt=sse`;
 
-// Odbieramy nowe propsy kontrolne i tekst z notatek
 const Chatbot = ({ id, activeChatId, setActiveChatId, noteContext }) => {
     const [chatHistory, setChatHistory] = useState([]);
     const chatBodyRef = useRef();
-
-    // NOWOŚĆ: Sprawdzamy, czy TO konkretne okienko ma być teraz otwarte
     const isThisChatOpen = activeChatId === id;
 
-    // NOWOŚĆ: Obsługa kliknięcia w Twój wbudowany przycisk togglera
     const handleToggleChat = () => {
         if (isThisChatOpen) {
-            setActiveChatId(null); // Zamyka czat
+            setActiveChatId(null);
         } else {
-            setActiveChatId(id); // Otwiera czat dla tej notatki / obszaru tworzenia
+            setActiveChatId(id);
         }
     };
 
-    // NOWOŚĆ: Reagowanie na otwarcie czatu i wstrzykiwanie roli Coacha
     useEffect(() => {
         if (isThisChatOpen && noteContext) {
+            const userName = noteContext.userName || "Użytkowniku";
             const systemPrompt = {
                 role: "user",
-                text: `Jesteś profesjonalnym Coachem Rozwoju Osobistego. 
-Użytkownik otworzył właśnie wpis z pamiętnika. 
-Tytuł wpisu: "${noteContext.title}"
-Data: ${noteContext.time}
-Treść: "${noteContext.content}"
-
-Przeanalizuj krótko ten tekst. Odpowiedz bardzo krótko (max 2-3 zdania), przywitaj się ciepło, nawiąż do tego co napisał i zadaj jedno głębokie pytanie coachingowe, które skłoni go do refleksji.`
+                text: `Jesteś profesjonalnym i empatycznym Coachem Rozwoju Osobistego.Rozmawiasz z użytkownikiem o imieniu: ${userName}.
+                Użytkownik otworzył właśnie swój wpis z pamiętnika. 
+                Tytuł wpisu: "${noteContext.title}"
+                Data: ${noteContext.time}
+                Treść: "${noteContext.content}"
+                Przeanalizuj krótko ten tekst. Odpowiedz bardzo krótko (max 2-3 zdania).
+                ROZPOCZNIJ ODPOWIEDŹ od bardzo ciepłego przywitania użytkownika po imieniu, stosując poprawną polską formę wołacza (np. "Cześć Aniu!", "Witaj Aleksandrze!", "Dzień dobry Tomku!").
+                Następnie nawiąż bezpośrednio do tego, co napisał, i zadaj jedno głębokie pytanie coachingowe, które skłoni go do refleksji.`
             };
-
             setChatHistory([systemPrompt]);
             generateBotResponse([systemPrompt]);
         } else if (!isThisChatOpen) {
-            setChatHistory([]); // Czyszczenie jednorazowej sesji przy zamknięciu
+            setChatHistory([]);
         }
     }, [isThisChatOpen]);
 
@@ -126,14 +122,10 @@ Przeanalizuj krótko ten tekst. Odpowiedz bardzo krótko (max 2-3 zdania), przyw
         }
     }, [chatHistory]);
 
-    // Ukrywamy instrukcje systemowe dla Gemini przed oczami użytkownika
     const visibleHistory = chatHistory.filter((_, idx) => idx > 0);
 
     return (
-        /* ZMIANA: show-chatbot sterowane jest teraz zmienną isThisChatOpen */
         <div className={`chatbot-scope ${isThisChatOpen ? "show-chatbot" : ""}`}>
-
-            {/* Przycisk Toglera z Twoim wbudowanym nasłuchiwaniem kliknięcia */}
             <button
                 onClick={handleToggleChat}
                 className="chatbot-toggler"
@@ -146,7 +138,7 @@ Przeanalizuj krótko ten tekst. Odpowiedz bardzo krótko (max 2-3 zdania), przyw
                 <div className="chat-header">
                     <div className="header-info">
                         <ChatbotIcon />
-                        <h2 className="logo-text">Coach AI</h2> {/* Zmiana nazwy na Coach AI */}
+                        <h2 className="logo-text">Coach AI</h2>
                     </div>
                     <button onClick={handleToggleChat} className="material-symbols-rounded">
                         keyboard_arrow_down

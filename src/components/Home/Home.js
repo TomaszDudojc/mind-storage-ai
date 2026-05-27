@@ -4,7 +4,7 @@ import Note from "../Note/Note";
 import { getNotes } from '../../services/notes';
 import { deleteItem } from '../../services/notes';
 
-function Home(props) {  
+function Home(props) {
   const [notes, setNotes] = useState([]);
   const mounted = useRef(true);
 
@@ -12,53 +12,51 @@ function Home(props) {
   // Może przyjąć wartość: id_notatki (string/number), "create-area" lub null
   const [activeChatId, setActiveChatId] = useState(null);
 
-  const userNotes = notes.filter(function(item) {
+  const userNotes = notes.filter(function (item) {
     return item.userId == props.currentUserId;
   });
 
   useEffect(() => {
-    mounted.current = true;    
-    if(notes.length && !alert) {
+    mounted.current = true;
+    if (notes.length && !alert) {
       return;
     }
     getNotes()
       .then(items => {
-        if(mounted.current) {
+        if (mounted.current) {
           setNotes(items)
         }
       })
-      return () => mounted.current = false;      
-  }, [alert, notes])  
+    return () => mounted.current = false;
+  }, [alert, notes])
 
-  function deleteNote(id) { 
-    deleteItem(id);   
-    // Jeśli usuwana notatka miała otwarty chat, zamknij go
+  function deleteNote(id) {
+    deleteItem(id);
     if (activeChatId === id) {
       setActiveChatId(null);
     }
   }
 
   return (
-    <div>        
-      {/* Przekazujemy propsy sterujące czatem do obszaru tworzenia */}
-      <CreateArea 
-        userId={props.currentUserId} 
+    <div>
+      <CreateArea
+        userId={props.currentUserId}
         userEmail={props.currentUserEmail}
-        id="create-area"
+        userFirstName={props.currentUserFirstName}
         activeChatId={activeChatId}
         setActiveChatId={setActiveChatId}
       />
-      
-      {/* Przekazujemy propsy sterujące oraz kontekst do istniejących notatek */}
+
       {userNotes.map(item => (
-        <Note 
-          key={item.id} 
-          id={item.id} 
-          time={item.time} 
-          title={item.title} 
-          content={item.content} 
-          userEmail={item.userEmail} 
-          onDelete={deleteNote} 
+        <Note
+          key={item.id}
+          id={item.id}
+          time={item.time}
+          title={item.title}
+          content={item.content}
+          userEmail={item.userEmail}
+          userFirstName={item.firstName}
+          onDelete={deleteNote}
           activeChatId={activeChatId}
           setActiveChatId={setActiveChatId}
         />

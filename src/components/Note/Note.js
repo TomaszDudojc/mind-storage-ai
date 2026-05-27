@@ -15,7 +15,6 @@ function Note(props) {
         <p>{props.content}</p>
         <div className="author">🖋 {props.userEmail}</div>
         <button className="note button" onClick={handleClick}><DeleteIcon /></button>
-        {/* NOWOŚĆ: Przekazujemy sterowanie i tekst do bota */}
         <Chatbot
           id={props.id}
           activeChatId={props.activeChatId}
@@ -23,7 +22,8 @@ function Note(props) {
           noteContext={{
             title: props.title,
             content: props.content,
-            time: props.time
+            time: props.time,
+            userName: props.userFirstName
           }}
         />
       </div>
