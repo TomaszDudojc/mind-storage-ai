@@ -1,20 +1,82 @@
-import React from "react";
+import React, { useState } from "react";
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
 import Chatbot from "../Chatbot/Chatbot";
 
 function Note(props) {
-  function handleClick() {
+  const [isEditing, setIsEditing] = useState(false);
+  const [editTitle, setEditTitle] = useState(props.title);
+  const [editContent, setEditContent] = useState(props.content);
+
+  function handleDeleteClick() {
     props.onDelete(props.id);
+  }
+
+  function handleSaveClick() {
+    if (props.onEdit) {
+      props.onEdit(props.id, { title: editTitle, content: editContent });
+    }
+    setIsEditing(false);
+  }
+
+  function handleCancelClick() {
+    setEditTitle(props.title);
+    setEditContent(props.content);
+    setIsEditing(false);
   }
 
   return (
     <div className="note-wrapper">
       <div className="note">
-        <p className="time">{props.time}</p>
-        <h1>{props.title}</h1>
-        <p>{props.content}</p>
-        <div className="author">🖋 {props.userEmail}</div>
-        <button className="note button" onClick={handleClick}><DeleteIcon /></button>
+        {isEditing ? (
+          <>
+            <p className="time">{props.time}</p>
+            <input
+              type="text"
+              className="edit-title-input"
+              value={editTitle}
+              onChange={(e) => setEditTitle(e.target.value)}
+            />
+            <textarea
+              className="edit-content-textarea"
+              value={editContent}
+              onChange={(e) => setEditContent(e.target.value)}
+            />
+            <div className="author">🖋 {props.userEmail}</div>
+
+            <div className="note-buttons-container">
+              <button className="note-action-btn" onClick={handleSaveClick}>
+                <CheckIcon />
+              </button>
+              <button className="note-action-btn" onClick={handleCancelClick}>
+                <CloseIcon />
+              </button>
+            </div>
+          </>
+        ) : (
+          <>
+            <p className="time">{props.time}</p>
+            <h1>{props.title}</h1>
+            <textarea
+              className="preview-content-textarea"
+              value={props.content}
+              readOnly
+            />
+            <div className="author">🖋 {props.userEmail}</div>
+
+            <div className="note-buttons-container">
+              <button className="note-action-btn" onClick={() => setIsEditing(true)}>
+                <EditIcon />
+              </button>
+              <button className="note-action-btn" onClick={handleDeleteClick}>
+                <DeleteIcon />
+              </button>
+            </div>
+          </>
+        )}
+
         <Chatbot
           id={props.id}
           activeChatId={props.activeChatId}
@@ -32,4 +94,3 @@ function Note(props) {
 }
 
 export default Note;
-

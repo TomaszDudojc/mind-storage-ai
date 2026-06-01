@@ -7,9 +7,6 @@ import { deleteItem } from '../../services/notes';
 function Home(props) {
   const [notes, setNotes] = useState([]);
   const mounted = useRef(true);
-
-  // NOWOŚĆ: Globalny stan kontrolujący, który chatbot jest obecnie otwarty
-  // Może przyjąć wartość: id_notatki (string/number), "create-area" lub null
   const [activeChatId, setActiveChatId] = useState(null);
 
   const userNotes = notes.filter(function (item) {
@@ -39,10 +36,11 @@ function Home(props) {
 
   return (
     <div>
-      <CreateArea
+      <CreateArea        
         userId={props.currentUserId}
         userEmail={props.currentUserEmail}
         userFirstName={props.currentUserFirstName}
+        id="create-area"
         activeChatId={activeChatId}
         setActiveChatId={setActiveChatId}
       />

@@ -95,18 +95,27 @@ footer p {
 }
 
 .note h1 {
-  font-size: 1.1em;
-  margin-bottom: 6px;
-  margin-top: 16px;
+  font-size: 1.1em !important;
+  margin-top: 16px !important;
+  margin-bottom: 6px !important;
+  padding: 4px 6px !important;
+  border: 1px solid transparent !important;
+  line-height: 1.2 !important;
+  display: block !important;
 }
 
 .note p {
-  font-size: 1.1em;
-  margin-bottom: 10px;
-  margin: auto;
-  white-space: pre-wrap;
-  word-wrap: break-word;
+  font-size: 1.1em !important;
+  margin: auto !important;
+  margin-bottom: 10px !important;
+  padding: 4px 6px !important;
+  border: 1px solid transparent !important;
+  line-height: 1.2 !important;
+  white-space: pre-wrap !important;
+  word-wrap: break-word !important;
+  display: block !important;
 }
+
 
 .time {
   background: #fff;
@@ -262,4 +271,114 @@ form.create-note button,
   text-align: right;
   margin-top: 5px;
   margin-bottom: 20px;
+}
+
+.note-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/*   TEXTAREA   */
+.note .preview-content-textarea {
+  font-size: 1.1em !important;
+  border: 1px solid transparent !important;
+  background: transparent !important;
+  width: 100% !important;
+  field-sizing: content !important;
+  box-sizing: border-box !important;
+  padding: 4px 6px !important;
+  margin: 0 !important;
+  font-family: "Montserrat", sans-serif !important;
+  color: #000 !important;
+  outline: none !important;
+  resize: none !important;
+  white-space: pre-wrap !important;
+  word-wrap: break-word !important;
+  line-height: 1.2 !important;
+  display: block !important;
+  overflow: hidden !important;
+}
+
+/*   EDIT FORM   */
+.note .edit-content-textarea {
+  font-size: 1.1em !important;
+  border: 1px solid #487eb0 !important;
+  background: transparent !important;
+  width: 100% !important;
+  field-sizing: content !important;
+  box-sizing: border-box !important;
+  padding: 4px 6px !important;
+  margin: 0 !important;
+  font-family: "Montserrat", sans-serif !important;
+  color: #000 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  resize: none !important;
+  white-space: pre-wrap !important;
+  word-wrap: break-word !important;
+  line-height: 1.2 !important;
+  display: block !important;
+  overflow: hidden !important;
+  border-radius: 4px !important;
+}
+
+.note .edit-title-input {
+  font-size: 1.1em !important;
+  font-weight: bold !important;
+  border: 1px solid #487eb0 !important;
+  background: transparent !important;
+  width: 100% !important;
+  field-sizing: content !important;
+  box-sizing: border-box !important;
+  margin-top: 16px !important;
+  margin-bottom: 6px !important;
+  padding: 4px 6px !important;
+  font-family: "Montserrat", sans-serif !important;
+  color: #000 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  display: block !important;
+  border-radius: 4px !important;
+  line-height: 1.2 !important;
+}
+
+.edit-title-input:focus,
+.edit-content-textarea:focus {
+  background: rgba(0, 0, 0, 0.03) !important;
+  border-radius: 4px !important;
+}
+
+.note-buttons-container {
+  position: absolute !important;
+  right: 70px !important;
+  bottom: -24px !important;
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 8px !important;
+  z-index: 10 !important;
+}
+
+.note-buttons-container button,
+.note-action-btn {
+  position: static !important;
+  background: #487eb0;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  outline: none;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.2s ease;
+}
+
+.note-buttons-container button:hover,
+.note-action-btn:hover {
+  background: #fff !important;
+  color: #487eb0 !important;
+  border: 1px solid #487eb0 !important;
 }
