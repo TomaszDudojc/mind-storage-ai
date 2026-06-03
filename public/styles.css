@@ -382,3 +382,20 @@ form.create-note button,
   color: #487eb0 !important;
   border: 1px solid #487eb0 !important;
 }
+
+.note.just-saved {
+  background-color: #e3f2fd !important;
+  box-shadow: 0 0 15px rgba(72, 126, 176, 0.6) !important;
+  animation: fadeBackToWhite 1s ease-out forwards; 
+}
+
+@keyframes fadeBackToWhite {
+  0% {
+    transform: scale(1.03); 
+  }
+  100% {
+    background-color: #ffffff !important; 
+    box-shadow: 0 2px 5px #ccc;
+    transform: scale(1);
+  }
+}

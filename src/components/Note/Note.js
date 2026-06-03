@@ -8,7 +8,8 @@ import Chatbot from "../Chatbot/Chatbot";
 function Note(props) {
   const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState(props.title);
-  const [editContent, setEditContent] = useState(props.content);
+  const [editContent, setEditContent] = useState(props.content);  
+  const [wasSaved, setWasSaved] = useState(false);
 
   function handleDeleteClick() {
     props.onDelete(props.id);
@@ -18,7 +19,11 @@ function Note(props) {
     if (props.onEdit) {
       props.onEdit(props.id, { title: editTitle, content: editContent });
     }
-    setIsEditing(false);
+    setIsEditing(false); 
+    setWasSaved(true);
+    setTimeout(() => {
+      setWasSaved(false);
+    }, 1000);
   }
 
   function handleCancelClick() {
@@ -28,8 +33,8 @@ function Note(props) {
   }
 
   return (
-    <div className="note-wrapper">
-      <div className="note">
+    <div className="note-wrapper">      
+      <div className={`note ${wasSaved ? 'just-saved' : ''}`}>
         {isEditing ? (
           <>
             <p className="time">{props.time}</p>
