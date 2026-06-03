@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import CreateArea from "../CreateArea/CreateArea";
 import Note from "../Note/Note";
-import { getNotes } from '../../services/notes';
-import { deleteItem } from '../../services/notes';
+import { getNotes, deleteItem, updateItem } from '../../services/notes';
 
 function Home(props) {
   const [notes, setNotes] = useState([]);
@@ -29,14 +28,29 @@ function Home(props) {
 
   function deleteNote(id) {
     deleteItem(id);
+    setNotes(prevNotes => prevNotes.filter(note => note.id !== id));
     if (activeChatId === id) {
       setActiveChatId(null);
     }
   }
 
+  function editNote(id, updatedData) {
+    setNotes(prevNotes => {
+      return prevNotes.map(note => {
+        if (note.id === id) {
+          return { ...note, ...updatedData };
+        }
+        return note;
+      });
+    });
+    updateItem(id, updatedData).catch(error => {
+      console.error("Błąd podczas aktualizacji notatki na serwerze:", error);
+    });
+  }
+
   return (
     <div>
-      <CreateArea        
+      <CreateArea
         userId={props.currentUserId}
         userEmail={props.currentUserEmail}
         userFirstName={props.currentUserFirstName}
@@ -55,6 +69,7 @@ function Home(props) {
           userEmail={item.userEmail}
           userFirstName={item.firstName}
           onDelete={deleteNote}
+          onEdit={editNote}
           activeChatId={activeChatId}
           setActiveChatId={setActiveChatId}
         />

@@ -76,19 +76,18 @@ function Note(props) {
             </div>
           </>
         )}
-
-        <Chatbot
-          id={props.id}
-          activeChatId={props.activeChatId}
-          setActiveChatId={props.setActiveChatId}
-          noteContext={{
-            title: props.title,
-            content: props.content,
-            time: props.time,
-            userName: props.userFirstName
-          }}
-        />
       </div>
+      <Chatbot
+        id={props.id}
+        activeChatId={props.activeChatId}
+        setActiveChatId={props.setActiveChatId}
+        noteContext={{
+          title: props.title,
+          content: props.content,
+          time: props.time,
+          userName: props.userFirstName
+        }}
+      />
     </div>
   );
 }
