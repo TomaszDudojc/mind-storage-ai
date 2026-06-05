@@ -5,6 +5,7 @@ import { getNotes, deleteItem, updateItem } from '../../services/notes';
 
 function Home(props) {
   const [notes, setNotes] = useState([]);
+  const [refreshTrigger, setRefreshTrigger] = useState(false);
   const mounted = useRef(true);
   const [activeChatId, setActiveChatId] = useState(null);
 
@@ -14,17 +15,18 @@ function Home(props) {
 
   useEffect(() => {
     mounted.current = true;
-    if (notes.length && !alert) {
-      return;
-    }
+
     getNotes()
       .then(items => {
         if (mounted.current) {
-          setNotes(items)
+          setNotes(items);
         }
-      })
-    return () => mounted.current = false;
-  }, [alert, notes])
+      });
+
+    return () => {
+      mounted.current = false;
+    };
+  }, [refreshTrigger]);
 
   function deleteNote(id) {
     deleteItem(id);
@@ -48,8 +50,14 @@ function Home(props) {
     });
   }
 
+  function handleFormSubmit() {
+    setTimeout(() => {
+      setRefreshTrigger(prev => !prev);
+    }, 300);
+  }
+
   return (
-    <div>
+    <div onSubmit={handleFormSubmit}>
       <CreateArea
         userId={props.currentUserId}
         userEmail={props.currentUserEmail}
