@@ -34,16 +34,31 @@ function CreateArea(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     setItem(userId, time, title, content, userEmail, userFirstName)
-      .then(() => {
+      .then((createdNote) => {
+        const noteToAdd = createdNote || {
+          id: Date.now(),
+          userId,
+          time,
+          title,
+          content,
+          userEmail,
+          firstName: userFirstName
+        };
+        if (props.onAdd) {
+          props.onAdd(noteToAdd);
+        }
         setTitle('');
         setContent('');
-        setAlert(true);        
+        setAlert(true);
+        setExpanded(false);
         if (props.activeChatId === "create-area") {
-          props.setActiveChatId(null); 
+          props.setActiveChatId(null);
         }
+      })
+      .catch(err => {
+        console.error("Błąd podczas dodawania notatki:", err);
       });
   };
-
 
   function expand() {
     setExpanded(true);
@@ -56,7 +71,7 @@ function CreateArea(props) {
           <input className="time" name="time" value={time} disabled />
           {isExpanded && (
             <input name="title" onChange={e => setTitle(e.target.value)} value={title} placeholder="Tytuł wpisu..." required />
-          )}          
+          )}
           <textarea
             name="content"
             onClick={expand}
@@ -71,7 +86,7 @@ function CreateArea(props) {
               <AddIcon />
             </Fab>
           </Zoom>
-        </form>      
+        </form>
         <Chatbot
           id={props.id}
           activeChatId={props.activeChatId}
