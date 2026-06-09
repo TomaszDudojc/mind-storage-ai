@@ -1,6 +1,5 @@
 import React from "react";
 import { LuBrainCircuit } from "react-icons/lu";
-//import SettingsPowerIcon from '@mui/icons-material/SettingsPower';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 function Header(props) {

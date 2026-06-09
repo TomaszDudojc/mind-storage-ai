@@ -4,7 +4,8 @@ function Footer() {
   const year = new Date().getFullYear();
   return (
     <footer>
-      <p>Copyright ⓒ {year}</p>
+      <p>© {year} Mind Storage AI. Wszelkie prawa zastrzeżone.</p>
+
     </footer>
   );
 }
