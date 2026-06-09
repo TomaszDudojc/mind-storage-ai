@@ -117,6 +117,7 @@ footer p {
   text-align: center;
 }
 
+/*
 .note-wrapper {
   position: relative;
   float: left;
@@ -131,6 +132,34 @@ footer p {
   width: 240px;
   position: relative;
   margin: 0;
+}
+*/
+
+.note-wrapper {
+  position: relative;
+  float: left;
+  margin: 16px 16px 40px 16px;
+  transition: transform 0.25s ease-out !important;
+}
+
+.note {
+  background: #fff;
+  border-radius: 7px;
+  box-shadow: 0 2px 5px #ccc;
+  padding: 15px;
+  width: 240px;
+  position: relative;
+  margin: 0;
+  transition: box-shadow 0.25s ease-out !important;
+}
+
+
+.note-wrapper:hover {
+  transform: translateY(-5px) !important;
+}
+
+.note-wrapper:hover .note {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12) !important;
 }
 
 .note h1 {
@@ -258,10 +287,8 @@ form.create-note button,
 }
 
 .buttonAdd:hover,
-.note button:hover,
 .form button:hover,
-.loginButton:hover,
-.logoutButton:hover {
+.loginButton:hover {
   background: #fff;
   color: #487eb0;
   border: 1px solid #487eb0;
