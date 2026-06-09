@@ -536,3 +536,12 @@ form.create-note button,
   background-color: #ffffff !important;
   color: #d32f2f !important;
 }
+
+.custom-toast.custom-toast-delete {
+  background-color: #57606f !important;
+}
+
+.custom-toast.custom-toast-delete div:first-child svg {
+  background-color: #ffffff !important;
+  color: #57606f !important;
+}

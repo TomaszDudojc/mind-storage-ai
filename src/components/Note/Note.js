@@ -4,6 +4,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import Chatbot from "../Chatbot/Chatbot";
+import toast from 'react-hot-toast';
 
 function Note(props) {
   const [isEditing, setIsEditing] = useState(false);
@@ -14,6 +15,9 @@ function Note(props) {
 
   function handleDeleteClick() {
     setIsDeleting(true);
+    toast.success('Wpis został usunięty 🗑', {
+      className: 'custom-toast custom-toast-delete',
+    });
     setTimeout(() => {
       props.onDelete(props.id);
     }, 500);
@@ -25,6 +29,9 @@ function Note(props) {
     }
     setIsEditing(false);
     setWasSaved(true);
+    toast.success('Zmiany zostały zapisane 💾', {
+      className: 'custom-toast',
+    });
     setTimeout(() => {
       setWasSaved(false);
     }, 1000);
