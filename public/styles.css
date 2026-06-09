@@ -19,6 +19,7 @@ header {
   margin: auto -16px 80px -16px;
   padding: 16px 32px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  position: relative;
 }
 
 header h1 {
@@ -50,6 +51,45 @@ header h1 {
     filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.9)) drop-shadow(0 0 18px rgba(0, 210, 255, 0.6));
     transform: scale(1.06);
   }
+}
+
+.logoutButton {
+  position: absolute !important;
+  right: 32px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  background: #487eb0 !important;
+  color: #ffffff !important;
+  border: none !important;
+  outline: 3px solid #ffffff !important;
+  outline-offset: -3px !important;
+  border-radius: 50% !important;
+  width: 54px !important;
+  height: 54px !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.2s ease-in-out !important;
+}
+
+.logoutButton .MuiSvgIcon-root,
+.logoutButton svg {
+  font-size: 32px !important;
+  width: 32px !important;
+  height: 32px !important;
+}
+
+.logoutButton svg path {
+  stroke: #ffffff !important;
+  stroke-width: 0.8 !important;
+}
+
+.logoutButton:hover {
+  background: #d32f2f !important;
+  color: #ffffff !important;
+  outline-color: #d32f2f !important;
+  box-shadow: 0 4px 14px rgba(211, 47, 47, 0.5) !important;
 }
 
 footer {
@@ -249,19 +289,6 @@ form.create-note button,
   font-size: 24px;
 }
 
-.logoutButton {
-  margin-left: 70%;
-  background: #487eb0;
-  color: #fff;
-  border: none;
-  border-radius: 7px;
-  cursor: pointer;
-  outline: none;
-  border-radius: 50%;
-  width: 56px;
-  height: 56px;
-}
-
 .author {
   color: grey;
   font-size: 14px;
@@ -316,7 +343,7 @@ form.create-note button,
   display: block !important;
   overflow: hidden !important;
   border-radius: 4px !important;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;  
+  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
   border: 1px solid #e0e0e0 !important;
   border-radius: 4px !important;
 }
