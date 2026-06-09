@@ -66,22 +66,23 @@ function Home(props) {
         setActiveChatId={setActiveChatId}
         onAdd={addNote}
       />
-
-      {userNotes.map(item => (
-        <Note
-          key={item.id}
-          id={item.id}
-          time={item.time}
-          title={item.title}
-          content={item.content}
-          userEmail={item.userEmail}
-          userFirstName={item.firstName}
-          onDelete={deleteNote}
-          onEdit={editNote}
-          activeChatId={activeChatId}
-          setActiveChatId={setActiveChatId}
-        />
-      ))}
+      <div className="notes-container">
+        {userNotes.map(item => (
+          <Note
+            key={item.id}
+            id={item.id}
+            time={item.time}
+            title={item.title}
+            content={item.content}
+            userEmail={item.userEmail}
+            userFirstName={item.firstName}
+            onDelete={deleteNote}
+            onEdit={editNote}
+            activeChatId={activeChatId}
+            setActiveChatId={setActiveChatId}
+          />
+        ))}
+      </div>
     </div>
   );
 }

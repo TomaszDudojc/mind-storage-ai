@@ -117,29 +117,20 @@ footer p {
   text-align: center;
 }
 
-/*
-.note-wrapper {
-  position: relative;
-  float: left;
-  margin: 16px 16px 40px 16px;
+.notes-container {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: flex-start !important;
+  gap: 30px !important;
+  padding: 20px 40px !important;
+  max-width: calc(100% - 400px) !important;
+  margin-right: auto !important;
 }
 
-.note {
-  background: #fff;
-  border-radius: 7px;
-  box-shadow: 0 2px 5px #ccc;
-  padding: 15px;
-  width: 240px;
-  position: relative;
-  margin: 0;
-}
-*/
-
 .note-wrapper {
+  display: flex !important;
   position: relative;
-  float: left;
-  margin: 16px 16px 40px 16px;
-  transition: transform 0.25s ease-out !important;
+  margin-bottom: 24px !important;
 }
 
 .note {
@@ -151,15 +142,8 @@ footer p {
   position: relative;
   margin: 0;
   transition: box-shadow 0.25s ease-out !important;
-}
-
-
-.note-wrapper:hover {
-  transform: translateY(-5px) !important;
-}
-
-.note-wrapper:hover .note {
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12) !important;
+  height: auto !important;
+  flex-grow: 1 !important;
 }
 
 .note h1 {
