@@ -508,3 +508,31 @@ form.create-note button,
     filter: blur(4px);
   }
 }
+
+/*   TOAST   */
+.custom-toast {
+  font-family: "Montserrat", sans-serif !important;
+  background-color: #487eb0 !important;
+  color: #ffffff !important;
+  border-radius: 8px !important;
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.18) !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  padding: 14px 24px !important;
+  min-width: 300px !important;
+}
+
+.custom-toast div:first-child svg {
+  background-color: #ffffff !important;
+  color: #487eb0 !important;
+  border-radius: 50%;
+}
+
+.custom-toast.custom-toast-error {
+  background-color: #d32f2f !important;
+}
+
+.custom-toast.custom-toast-error div:first-child svg {
+  background-color: #ffffff !important;
+  color: #d32f2f !important;
+}
