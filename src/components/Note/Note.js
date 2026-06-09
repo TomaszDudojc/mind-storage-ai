@@ -46,7 +46,7 @@ function Note(props) {
         {isEditing ? (
           <>
             <p className="time">{props.time}</p>
-            <input
+            <textarea
               type="text"
               className="edit-title-input"
               value={editTitle}
@@ -60,10 +60,10 @@ function Note(props) {
             <div className="author">🖋 {props.userEmail}</div>
 
             <div className="note-buttons-container">
-              <button className="note-action-btn" onClick={handleSaveClick}>
+              <button className="note-action-btn save-btn" onClick={handleSaveClick}>
                 <CheckIcon />
               </button>
-              <button className="note-action-btn" onClick={handleCancelClick}>
+              <button className="note-action-btn cancel-btn" onClick={handleCancelClick}>
                 <CloseIcon />
               </button>
             </div>
@@ -80,10 +80,10 @@ function Note(props) {
             <div className="author">🖋 {props.userEmail}</div>
 
             <div className="note-buttons-container">
-              <button className="note-action-btn" onClick={() => setIsEditing(true)}>
+              <button className="note-action-btn edit-btn" onClick={() => setIsEditing(true)}>
                 <EditIcon />
               </button>
-              <button className="note-action-btn" onClick={handleDeleteClick}>
+              <button className="note-action-btn delete-btn" onClick={handleDeleteClick}>
                 <DeleteIcon />
               </button>
             </div>
