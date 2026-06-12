@@ -304,11 +304,18 @@ form.create-note button,
   border: 1px solid #487eb0;
 }
 
+.auth-container {
+  margin-top: 100px !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .fromContainer {
   position: relative;
   width: 480px;
   margin: 5px auto 2px auto;
-  text-align: center;
+  text-align: center;  
 }
 
 .loginButton {
