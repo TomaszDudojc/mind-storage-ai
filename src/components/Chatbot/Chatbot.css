@@ -26,8 +26,10 @@
 /* --- CHAT TOGGLER --- */
 .chatbot-scope .chatbot-toggler {
   position: absolute;
-  bottom: -24px;
-  right: -24px;
+  right: 85px !important;
+  margin-right: -54px !important;
+  /* Idealny lewy odstęp 6px od sąsiedniego przycisku */
+  bottom: -20px !important;
   border: none;
   height: 48px;
   width: 48px;
@@ -219,7 +221,7 @@
   white-space: pre-line;
   font-size: 0.92rem !important;
   line-height: 1.5;
-  height: auto !important; 
+  height: auto !important;
 }
 
 .chatbot-scope .bot-message .message-text {
