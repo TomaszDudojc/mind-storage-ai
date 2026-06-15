@@ -21,14 +21,12 @@ async function registerUser(credentials) {
   }).then(data => data.json());
 }
 
-
 export default function Login({ setToken }) {
   const [firstName, setFirstName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showedRegisterForm, setRegisterForm] = useState(false);
   const [showedLoginForm, setLoginForm] = useState(false);
-
 
   const handleLogin = async e => {
     e.preventDefault();

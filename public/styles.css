@@ -307,6 +307,7 @@ form.create-note button {
   max-width: calc(100% - 400px) !important;
   margin-right: auto !important;
   margin-bottom: 40px;
+  align-items: flex-start !important; 
 }
 
 .note-wrapper {
@@ -419,18 +420,6 @@ form.create-note button {
   box-shadow: 0 0 0 4px rgba(72, 126, 176, 0.2) !important;
 }
 
-/* Przyciski operacji na notatkach */
-/*
-.note-buttons-container {
-  position: absolute !important;
-  right: 32px !important;
-  bottom: -24px !important;
-  display: flex !important;
-  flex-direction: row !important;
-  gap: 8px !important;
-  z-index: 10 !important;
-}
-*/
 .note-buttons-container {
   position: absolute !important;
   right: 85px !important;
