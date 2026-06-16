@@ -29,7 +29,7 @@ function Note(props) {
     }
     setIsEditing(false);
     setWasSaved(true);
-    toast.success('Zmiany zostały zapisane 💾', {
+    toast.success('Zmiany zostały zapisane 🖫', {
       className: 'custom-toast',
     });
     setTimeout(() => {
