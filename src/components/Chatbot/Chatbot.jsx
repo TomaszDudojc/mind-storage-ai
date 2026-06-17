@@ -40,8 +40,15 @@ const Chatbot = ({ id, activeChatId, setActiveChatId, noteContext }) => {
                 Data: ${noteContext.time}
                 Treść: "${noteContext.content}"
                 Przeanalizuj krótko ten tekst. Odpowiedz bardzo krótko (max 2-3 zdania).
-                ROZPOCZNIJ ODPOWIEDŹ od bardzo ciepłego przywitania użytkownika po imieniu, stosując poprawną polską formę wołacza (np. "Cześć Aniu!", "Witaj Aleksandrze!", "Dzień dobry Tomku!").
-                Następnie nawiąż bezpośrednio do tego, co napisał, i zadaj jedno głębokie pytanie coachingowe, które skłoni go do refleksji.`
+                BEZWZGLĘDNE WYMAGANIA DOTYCZĄCE FORMATOWANIA:
+                1. ROZPOCZNIJ ODPOWIEDŹ od bardzo ciepłego przywitania użytkownika po imieniu, stosując poprawną polską formę wołacza (np. "Cześć Aniu!", "Witaj Olu!", "Dzień dobry Tomku!").
+                2. NATYCHMIAST PO POWITANIU wstaw dokładnie dwa znaki nowej linii (podwójny enter / '\n\n').
+                3. Dopiero od nowej linii (w osobnym akapicie) nawiąż bezpośrednio do tego, co napisał, i zadaj jedno głębokie pytanie coachingowe, które skłoni go do refleksji.
+    
+                Schemat Twojej odpowiedzi musi wyglądać dokładnie tak:
+                [Ciepłe powitanie po imieniu]!
+    
+                [Tutaj Twoja krótka analiza i jedno głębokie pytanie coachingowe]`
             };
             setChatHistory([systemPrompt]);
             generateBotResponse([systemPrompt]);

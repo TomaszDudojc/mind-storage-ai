@@ -69,7 +69,7 @@ header h1 {
 
   50% {
     filter: drop-shadow(0 0 15px rgba(38, 166, 154, 0.8));
-    transform: scale(1.04);
+    transform: scale(1.06);
   }
 }
 
@@ -624,14 +624,14 @@ form.create-note:hover,
     font-size: 17px !important;
     padding: 12px !important;
   }
-
+/*
   .authActionButton {
     right: 16px !important;
     bottom: -20px !important;
     width: 44px !important;
     height: 44px !important;
   }
-
+*/
   .notes-container {
     max-width: 100% !important;
     padding: 10px 0 !important;

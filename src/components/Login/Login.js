@@ -33,7 +33,7 @@ export default function Login({ setToken }) {
     const data = await loginUser({ email, password });
 
     if (data.error === 'user_not_found') {
-      toast.error('Ten adres e-mail nie jest zarejestrowany! ✉️', { className: 'custom-toast custom-toast-delete' });
+      toast.error('Ten adres e-mail nie jest zarejestrowany! 📧❓', { className: 'custom-toast custom-toast-delete' });
     } else if (data.error === 'wrong_password') {
       toast.error('Niepoprawne hasło! 🔒', { className: 'custom-toast custom-toast-delete' });
     }

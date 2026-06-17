@@ -1,216 +1,30 @@
 {
   "notes": [
     {
-      "id": "bdca",
-      "userId": "f641",
-      "time": "27.05.2026, 09:22:24",
-      "title": "udane logowanie",
-      "content": "do aplikacji react",
-      "userEmail": "tomek@com",
-      "firstName": "Tomek"
-    },
-    {
-      "id": "fb86",
-      "userId": "8f59",
-      "time": "27.05.2026, 09:53:05",
-      "title": "piękny dzień",
-      "content": "super pogoda",
+      "id": "ced7",
+      "userId": "803f",
+      "time": "17.06.2026, 10:44:44",
+      "title": "pierwsza notataka",
+      "content": "rejestracja i logowanie do pamiętnika przebiegły pomyślnie",
       "userEmail": "ola@com",
       "firstName": "Ola"
     },
     {
-      "id": "542d",
-      "userId": "f641",
-      "time": "9.06.2026, 19:42:07",
-      "title": "toast",
-      "content": "sprawdzamy, czy toasty dzaiłają\nwygląda na to, że jest ok.\nmożna więc przejść do dalszych etapów:\n- system rejestracji\n- system logowania\n- pozostałe poprawki",
-      "userEmail": "tomek@com",
-      "firstName": "Tomek"
-    },
-    {
-      "id": "c24a",
-      "userId": "5fa5",
-      "time": "12.06.2026, 14:57:30",
-      "title": "dsafdsa",
-      "content": "dasfsaf",
-      "userEmail": "ala@com",
-      "firstName": "Ala"
-    },
-    {
-      "id": "82f5",
-      "userId": "39da",
-      "time": "15.06.2026, 12:54:03",
-      "title": "udane logowanie",
-      "content": "wygląda na to, że udało mi się zalogować poprawnie",
-      "userEmail": "damian@com",
-      "firstName": "Damian"
-    },
-    {
-      "id": "4490",
-      "userId": "4c62",
-      "time": "15.06.2026, 13:06:30",
-      "title": "das",
-      "content": "adsfasf",
-      "userEmail": "ela@com",
-      "firstName": "Ela"
-    },
-    {
-      "id": "69d9",
-      "userId": "97cc",
-      "time": "15.06.2026, 15:49:14",
-      "title": "pierwsze logowanie",
-      "content": "logwoanie się powifdafasfodłó",
-      "userEmail": "jan@com",
-      "firstName": "Jan"
-    },
-    {
-      "id": "a112",
-      "userId": "66e2",
-      "time": "15.06.2026, 22:15:03",
-      "title": "dasf",
-      "content": "adfasf",
-      "userEmail": "adam@com",
-      "firstName": "Adam"
-    },
-    {
-      "id": "8a52",
-      "userId": "8f59",
-      "time": "16.06.2026, 16:25:21",
-      "title": "DFSAF",
-      "content": "DSf",
-      "userEmail": "ola@com",
-      "firstName": "Ola"
-    },
-    {
-      "id": "5768",
-      "userId": "8f59",
-      "time": "16.06.2026, 16:25:28",
-      "title": "ASDFSA",
-      "content": "AFSDF",
-      "userEmail": "ola@com",
-      "firstName": "Ola"
-    },
-    {
-      "id": "2e8f",
-      "userId": "8f59",
-      "time": "16.06.2026, 16:25:32",
-      "title": "DSFSA",
-      "content": "ASDFSA",
-      "userEmail": "ola@com",
-      "firstName": "Ola"
-    },
-    {
-      "id": "b53d",
-      "userId": "8f59",
-      "time": "16.06.2026, 16:25:35",
-      "title": "DASFSA",
-      "content": "FADSF",
-      "userEmail": "ola@com",
-      "firstName": "Ola"
-    },
-    {
-      "id": "a947",
-      "userId": "8f59",
-      "time": "16.06.2026, 16:25:39",
-      "title": "DSA",
-      "content": "FSADF",
-      "userEmail": "ola@com",
-      "firstName": "Ola"
-    },
-    {
-      "id": "6aef",
-      "userId": "8f59",
-      "time": "16.06.2026, 16:25:42",
-      "title": "DSAFDAS",
-      "content": "ASDF",
-      "userEmail": "ola@com",
-      "firstName": "Ola"
-    },
-    {
-      "id": "3073",
-      "userId": "8f59",
-      "time": "16.06.2026, 16:36:29",
-      "title": "dasfas",
-      "content": "DFa",
-      "userEmail": "ola@com",
-      "firstName": "Ola"
-    },
-    {
-      "id": "14ed",
-      "userId": "8f59",
-      "time": "16.06.2026, 16:39:57",
-      "title": "dFAS",
-      "content": "cc",
+      "id": "5198",
+      "userId": "803f",
+      "time": "17.06.2026, 10:48:17",
+      "title": "chatbot",
+      "content": "„Szybki test systemu: sztuczna inteligencja przeżyła pierwsze spotkanie ze mną, więc oficjalnie uznaję nas za zgrany duet! ;)”",
       "userEmail": "ola@com",
       "firstName": "Ola"
     }
   ],
   "users": [
     {
-      "id": "f641",
-      "firstName": "Tomek",
-      "email": "tomek@com",
-      "hashedPassword": "$2a$10$Yc0sC6hRCvuugpt..uedH.jFSjbRj5HCLSAJhViDs9/7JxtYQ4xRW"
-    },
-    {
-      "id": "8f59",
+      "id": "803f",
       "firstName": "Ola",
       "email": "ola@com",
-      "hashedPassword": "$2a$10$1WxAvmcEeClCn6kBhi/C2u7.yozkh2Zf4P6zkOgrM7A.2N77Mg4/q"
-    },
-    {
-      "id": "66e2",
-      "firstName": "Adam",
-      "email": "adam@com",
-      "hashedPassword": "$2a$10$D.WZeuKRhkjJrj1tQRmXa.rRRfpEDxmOuj9Dm/vIn7/mWvviq.JEK"
-    },
-    {
-      "id": "5fa5",
-      "firstName": "Ala",
-      "email": "ala@com",
-      "hashedPassword": "$2a$10$UCstXdp6gyOeS/V8USFUWufpEnkeNAizxbFAvx9UoVCJ8Xgj3tDZS"
-    },
-    {
-      "id": "8612",
-      "firstName": "Ada",
-      "email": "ada@com",
-      "hashedPassword": "$2a$10$Rt76XEfyKBIFBjJ2NE8FXOIuuUBIe0a58Azhqmj.OEerC8VrL00ha"
-    },
-    {
-      "id": "39da",
-      "firstName": "Damian",
-      "email": "damian@com",
-      "hashedPassword": "$2a$10$ol9rneF34xaxQtYaFiBePuCFe/Cce/h0tTaO9I6r6DhhTtG2cS6S."
-    },
-    {
-      "id": "4c62",
-      "firstName": "Ela",
-      "email": "ela@com",
-      "hashedPassword": "$2a$10$ZwSpHj2n81yOzmZHJA2t3.PmBt5.aOFShx1S0kkfvWKqVg3gMPLHa"
-    },
-    {
-      "id": "b62f",
-      "firstName": "Ela",
-      "email": "adsfas@com",
-      "hashedPassword": "$2a$10$tgIgVFeuECboO8RbCKGhie2bk/729kQ6/DhM0Vxpf5kadZXxzprzK"
-    },
-    {
-      "id": "97cc",
-      "firstName": "Jan",
-      "email": "jan@com",
-      "hashedPassword": "$2a$10$l4/.GJh03vDWSKKmEV3EkOBNdZR6E4qM1IuKf6NevupSmiVNFWbOy"
-    },
-    {
-      "id": "99dd",
-      "firstName": "Jur",
-      "email": "jur@com",
-      "hashedPassword": "$2a$10$4iH35q5ULxO1oiGp6.wmQeWX6qEAsHg031/w7bkmqpjJSXlW38S56"
-    },
-    {
-      "id": "60ab",
-      "firstName": "Zyga",
-      "email": "zyga@com",
-      "hashedPassword": "$2a$10$MN906Nv6ny52i4z1S5ywDe8QA73ucHuARaPpHhI5zLks/FKX7Ua3e"
+      "hashedPassword": "$2a$10$rwI.jKbsPs8rJQST0tEZR.duLjJbvraj5OdbDZrLnoo79Aao.fWFS"
     }
   ]
 }
