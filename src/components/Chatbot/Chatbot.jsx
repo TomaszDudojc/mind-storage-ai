@@ -55,6 +55,7 @@ const Chatbot = ({ id, activeChatId, setActiveChatId, noteContext }) => {
         } else if (!isThisChatOpen) {
             setChatHistory([]);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isThisChatOpen]);
 
     const generateBotResponse = async (history) => {

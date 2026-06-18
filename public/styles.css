@@ -1,3 +1,5 @@
+@import url('https://googleapis.com');
+
 /* ==========================================
    STYLE GLOBALNE - DEEP OCEAN MYŚLI
    ========================================== */
@@ -624,7 +626,8 @@ form.create-note:hover,
     font-size: 17px !important;
     padding: 12px !important;
   }
-/*
+
+  /*
   .authActionButton {
     right: 16px !important;
     bottom: -20px !important;
