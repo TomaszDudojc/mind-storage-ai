@@ -1,6 +1,6 @@
 import React from "react";
 import { LuBrainCircuit } from "react-icons/lu";
-import SettingsPowerIcon from '@mui/icons-material/SettingsPower';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 function Header(props) {
   function handleLogout() {
@@ -10,7 +10,7 @@ function Header(props) {
 
   return (
     <header>
-      <h1><LuBrainCircuit className="ai-glow-icon" /> Mind Storage AI{props.isLogged && <button className="logoutButton" onClick={handleLogout}><SettingsPowerIcon style={{ fontWeight: 700, fontSize: "46px" }} /></button>}</h1>
+      <h1><LuBrainCircuit className="ai-glow-icon" /> Mind Storage AI{props.isLogged && <button className="logoutButton" onClick={handleLogout}><LogoutIcon style={{ fontWeight: 700, fontSize: "46px" }} /></button>}</h1>
     </header>
   );
 }

@@ -7,6 +7,7 @@ import useToken from './useToken';
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import Home from "../Home/Home";
+import { Toaster } from 'react-hot-toast';
 
 function App() {
   const { token, setToken } = useToken();
@@ -14,31 +15,33 @@ function App() {
   const loggedUserFirstName = JSON.parse(loggedUserFirstNameString);
   const loggedUserEmailString = localStorage.getItem('loggedUserEmail');
   const loggedUserEmail = JSON.parse(loggedUserEmailString);
-  const loggedUserIdString = localStorage.getItem('loggedUserId');  
-  const loggedUserId = JSON.parse(loggedUserIdString);  
-  
-  if(!token) {
+  const loggedUserIdString = localStorage.getItem('loggedUserId');
+  const loggedUserId = JSON.parse(loggedUserIdString);
+
+  if (!token) {
     return (
-    <div>
-      <Header />
-      <Login setToken={setToken}/>
-      <Footer />    
-    </div>);
+      <div>
+        <Toaster position="bottom-left" reverseOrder={false} />
+        <Header />
+        <Login setToken={setToken} />
+        <Footer />
+      </div>);
   }
 
   return (
     <div className="wrapper">
-      <Header isLogged="true"/>          
+      <Toaster position="bottom-left" reverseOrder={false} />
+      <Header isLogged="true" />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home currentUserFirstName = {loggedUserFirstName} currentUserId = {loggedUserId} currentUserEmail={loggedUserEmail}/>} /> 
-          <Route path="/dashboard" element={<Dashboard />} />           
-          <Route path="/preferences" element={<Preferences />} /> 
+          <Route path="/" element={<Home currentUserFirstName={loggedUserFirstName} currentUserId={loggedUserId} currentUserEmail={loggedUserEmail} />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/preferences" element={<Preferences />} />
         </Routes>
-      </BrowserRouter>      
+      </BrowserRouter>
       <Footer />
     </div>
-  );    
+  );
 }
 
 export default App;

@@ -1,45 +1,30 @@
 {
   "notes": [
     {
-      "id": "bdca",
-      "userId": "f641",
-      "time": "27.05.2026, 09:22:24",
-      "title": "udane logowanie",
-      "content": "do aplikacji react",
-      "userEmail": "tomek@com",
-      "firstName": "Tomek"
-    },
-    {
-      "id": "fb86",
-      "userId": "8f59",
-      "time": "27.05.2026, 09:53:05",
-      "title": "piękny dzień",
-      "content": "super pogoda",
+      "id": "ced7",
+      "userId": "803f",
+      "time": "17.06.2026, 10:44:44",
+      "title": "pierwsza notataka",
+      "content": "rejestracja i logowanie do pamiętnika przebiegły pomyślnie",
       "userEmail": "ola@com",
       "firstName": "Ola"
     },
     {
-      "id": "6ddf",
-      "userId": "8f59",
-      "time": "27.05.2026, 09:53:29",
-      "title": "wyjazd w góry",
-      "content": "warto zaplanować go z wyprzedzeniem",
+      "id": "5198",
+      "userId": "803f",
+      "time": "17.06.2026, 10:48:17",
+      "title": "chatbot",
+      "content": "„Szybki test systemu: sztuczna inteligencja przeżyła pierwsze spotkanie ze mną, więc oficjalnie uznaję nas za zgrany duet! ;)”",
       "userEmail": "ola@com",
       "firstName": "Ola"
     }
   ],
   "users": [
     {
-      "id": "f641",
-      "firstName": "Tomek",
-      "email": "tomek@com",
-      "hashedPassword": "$2a$10$Yc0sC6hRCvuugpt..uedH.jFSjbRj5HCLSAJhViDs9/7JxtYQ4xRW"
-    },
-    {
-      "id": "8f59",
+      "id": "803f",
       "firstName": "Ola",
       "email": "ola@com",
-      "hashedPassword": "$2a$10$1WxAvmcEeClCn6kBhi/C2u7.yozkh2Zf4P6zkOgrM7A.2N77Mg4/q"
+      "hashedPassword": "$2a$10$rwI.jKbsPs8rJQST0tEZR.duLjJbvraj5OdbDZrLnoo79Aao.fWFS"
     }
   ]
 }

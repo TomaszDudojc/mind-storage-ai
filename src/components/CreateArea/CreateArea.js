@@ -1,14 +1,13 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { setItem } from '../../services/notes';
 import AddIcon from "@mui/icons-material/Add";
-import { Fab } from "@mui/material";
-import { Zoom } from "@mui/material";
+import { Fab, Zoom } from "@mui/material";
 import Chatbot from "../Chatbot/Chatbot";
+import toast from 'react-hot-toast';
 
 function CreateArea(props) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [alert, setAlert] = useState(false);
   const [time, setTime] = useState(new Date().toLocaleString());
   const userId = props.userId;
   const userEmail = props.userEmail;
@@ -24,26 +23,40 @@ function CreateArea(props) {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    if (alert) {
-      const timer = setTimeout(() => setAlert(false), 1000);
-      return () => clearTimeout(timer);
-    }
-  }, [alert]);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     setItem(userId, time, title, content, userEmail, userFirstName)
-      .then(() => {
+      .then((createdNote) => {
+        const noteToAdd = createdNote || {
+          id: Date.now(),
+          userId,
+          time,
+          title,
+          content,
+          userEmail,
+          firstName: userFirstName
+        };
+        if (props.onAdd) {
+          props.onAdd(noteToAdd);
+        }
         setTitle('');
         setContent('');
-        setAlert(true);        
+        setExpanded(false);
+        toast.success('Wpis dodany do pamiętnika 🖋', {
+          className: 'custom-toast',
+        });
+
         if (props.activeChatId === "create-area") {
-          props.setActiveChatId(null); 
+          props.setActiveChatId(null);
         }
+      })
+      .catch(err => {
+        console.error("Błąd podczas dodawania notatki:", err);
+        toast.error("Nie udało się dodać wpisu ❌", {
+          className: 'custom-toast custom-toast-error',
+        });
       });
   };
-
 
   function expand() {
     setExpanded(true);
@@ -56,7 +69,7 @@ function CreateArea(props) {
           <input className="time" name="time" value={time} disabled />
           {isExpanded && (
             <input name="title" onChange={e => setTitle(e.target.value)} value={title} placeholder="Tytuł wpisu..." required />
-          )}          
+          )}
           <textarea
             name="content"
             onClick={expand}
@@ -71,7 +84,7 @@ function CreateArea(props) {
               <AddIcon />
             </Fab>
           </Zoom>
-        </form>      
+        </form>
         <Chatbot
           id={props.id}
           activeChatId={props.activeChatId}
@@ -84,7 +97,6 @@ function CreateArea(props) {
           }}
         />
       </div>
-      {alert && <h3 className="info"> Wpis dodany do pamiętnika 🖋 </h3>}
     </div>
   );
 }

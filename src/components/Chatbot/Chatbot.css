@@ -5,16 +5,22 @@
 .chatbot-scope {
   box-sizing: border-box;
   font-family: "Inter", sans-serif;
-  --primary-color: #3b82f6;
-  --primary-hover: #2563eb;
-  --header-bg: #5a7b9a;
-  --bot-msg-bg: #5a7b9a;
+  /* KLUCZ: Zmieniamy niebieskie akcenty na kolory Twoich przycisków akcji z notatek */
+  --primary-color: #2196f3;
+  /* Niebieski turkus z przycisków pod notatkami */
+  --primary-hover: #1e88e5;
+  --header-bg: #1c5259;
+  /* Szmaragdowy kolor Twojej aplikacji */
+  --bot-msg-bg: rgba(38, 166, 154, 0.2);
+  /* Przezroczysty szmaragd dla wiadomości bota */
   --bot-msg-text: #ffffff;
-  --user-msg-bg: #ffffff;
-  --user-msg-text: #1e293b;
-  --icon-grey: #5a7b9a;
-  --error-red: #991b1b;
-  --border-color: #e2e8f0;
+  --user-msg-bg: #2196f3;
+  /* Wiadomość użytkownika dopasowana do ikon pod notatką */
+  --user-msg-text: #ffffff;
+  --icon-grey: #1c5259;
+  --error-red: #ff5757;
+  /* Ładniejsza, jaskrawa czerwień błędu na ciemne tło */
+  --border-color: rgba(38, 166, 154, 0.25);
 }
 
 .chatbot-scope * {
@@ -26,28 +32,33 @@
 /* --- CHAT TOGGLER --- */
 .chatbot-scope .chatbot-toggler {
   position: absolute;
-  bottom: -24px;
-  right: -24px;
-  border: none;
+  right: 85px !important;
+  margin-right: -54px !important;
+  border: 1px solid rgba(38, 166, 154, 0.5) !important;
+  /* Wyraźna turkusowa ramka jak przy plusie */
   height: 48px;
   width: 48px;
   display: flex;
   cursor: pointer;
   border-radius: 50%;
-  background-color: var(--primary-color);
   align-items: center;
   justify-content: center;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 999;
-  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
-  background: linear-gradient(145deg, #4da1ff, #3577e3);
-  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4),
-    inset 0 2px 3px rgba(255, 255, 255, 0.3),
-    inset 0 -2px 3px rgba(0, 0, 0, 0.1)
+  /* Kiedy zamknięty: Głęboki szmaragd spójny z przyciskami formularza (+ / X) */
+  background: #1c5259 !important;
+  /* Subtelna poświata (glow) wokół przycisku wybijająca go z tła strony */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3),
+    0 0 12px rgba(38, 166, 154, 0.25) !important;
 }
 
 .chatbot-scope .chatbot-toggler:hover {
-  background-color: var(--primary-hover);
+  background: #153e43 !important;
+  /* Ciemniejszy szmaragd przy najechaniu */
+  border-color: rgba(38, 166, 154, 0.8) !important;
+  /* Mocniejsze podświetlenie ramki */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4),
+    0 0 18px rgba(38, 166, 154, 0.45) !important;
   transform: scale(1.05);
 }
 
@@ -62,19 +73,21 @@
   opacity: 0;
 }
 
+/* Stan kiedy czat jest OTWARTY */
 .chatbot-scope.show-chatbot .chatbot-toggler {
   transform: rotate(90deg);
-  background: linear-gradient(145deg, #7a9cb9, var(--icon-grey));
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15),
-    inset 0 2px 3px rgba(255, 255, 255, 0.2),
-    inset 0 -2px 3px rgba(0, 0, 0, 0.1);
+  /* Kiedy otwarty: Zmienia się w niebieski akcent (taki sam jak przyciski pod notatkami) */
+  background: #2196f3 !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 0 4px 15px rgba(33, 150, 243, 0.4),
+    0 0 15px rgba(33, 150, 243, 0.2) !important;
 }
 
 .chatbot-scope.show-chatbot .chatbot-toggler:hover {
   transform: rotate(90deg) scale(1.1);
-  background: linear-gradient(145deg, #6a8ba8, #4a6782);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2),
-    inset 0 2px 3px rgba(255, 255, 255, 0.2);
+  background: #1e88e5 !important;
+  box-shadow: 0 6px 20px rgba(33, 150, 243, 0.5),
+    0 0 20px rgba(33, 150, 243, 0.3) !important;
 }
 
 .chatbot-scope.show-chatbot .chatbot-toggler span:first-child {
@@ -98,10 +111,16 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background: #fff;
+  /* KLUCZ: Efekt szkła (Glassmorphic) identyczny jak tła aplikacji Mind Storage AI */
+  background: rgba(20, 50, 55, 0.85) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
   border-radius: 15px;
-  border: 1px solid var(--border-color);
-  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15), 0 10px 20px -5px rgba(0, 0, 0, 0.1);
+  /* ZMIANA: Delikatna, biała szklana krawędź. Sprawia, że prześwity pod spodem wyglądają naturalnie i czysto */
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  /* KLUCZ: Głęboki cień + zachowana delikatna turkusowa poświata wokół całego okna */
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45),
+    0 0 25px rgba(38, 166, 154, 0.12) !important;
   transition: all 0.2s ease;
   z-index: 999;
 }
@@ -113,14 +132,15 @@
 
 /* --- HEADER --- */
 .chatbot-scope .chat-header {
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid var(--border-color);
   position: relative;
   z-index: 2;
   display: flex;
   padding: 15px 22px;
   align-items: center;
   justify-content: space-between;
-  background-color: var(--header-bg);
+  background-color: rgba(28, 82, 89, 0.5) !important;
+  /* Półprzezroczysty szmaragd nagłówka */
   color: #fff;
   flex-shrink: 0;
 }
@@ -131,12 +151,13 @@
   align-items: center;
 }
 
+/* Kółko tła pod ikoną bota w nagłówku */
 .chatbot-scope .header-info svg {
   height: 38px;
   width: 38px;
   padding: 8px;
-  fill: var(--header-bg);
-  background: #fff;
+  fill: #fff;
+  background: var(--header-bg) !important;
   border-radius: 50%;
 }
 
@@ -168,9 +189,10 @@
   flex-grow: 1;
   overflow-y: auto;
   padding: 25px 22px;
-  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+  /* Usunięcie białego gradientu na rzecz przezroczystego ciemnego tła */
+  background: transparent !important;
   scrollbar-width: thin;
-  scrollbar-color: var(--bot-msg-bg) transparent;
+  scrollbar-color: var(--border-color) transparent;
 }
 
 .chatbot-scope .chat-body::-webkit-scrollbar {
@@ -207,7 +229,8 @@
   width: 32px;
   padding: 6px;
   fill: #fff;
-  background-color: var(--icon-grey);
+  background-color: var(--header-bg) !important;
+  /* Szmaragdowe tło ikonki bota */
   border-radius: 50%;
   flex-shrink: 0;
 }
@@ -215,42 +238,49 @@
 .chatbot-scope .message .message-text {
   padding: 12px 16px;
   max-width: 80%;
+  white-space: pre-wrap !important; 
   word-wrap: break-word;
-  white-space: pre-line;
-  font-size: 0.92rem;
+  font-size: 0.92rem !important;
   line-height: 1.5;
+  height: auto !important;
 }
 
+/* Dymek bota - subtelne szmaragdowe tło pasujące do kafelków */
 .chatbot-scope .bot-message .message-text {
-  background-color: var(--bot-msg-bg);
-  color: var(--bot-msg-text);
+  background-color: rgba(38, 166, 154, 0.15) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(38, 166, 154, 0.2) !important;
   border-radius: 18px 18px 18px 4px;
-  box-shadow: 0 2px 8px rgba(90, 123, 154, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .chatbot-scope .user-message {
   flex-direction: row-reverse;
 }
 
+/* Dymek użytkownika - niebieski turkus zgodny z akcentami pod notatkami */
 .chatbot-scope .user-message .message-text {
-  background-color: var(--user-msg-bg);
-  color: var(--user-msg-text);
-  border: 1px solid var(--border-color);
+  background-color: #2196f3 !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 18px 18px 4px 18px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 4px 12px rgba(33, 150, 243, 0.2);
 }
 
 /* --- ERROR  --- */
 .chatbot-scope .message.error .message-text {
   word-break: break-word;
   overflow-wrap: anywhere;
-  color: var(--error-red) !important;
-  background-color: #fef2f2 !important;
-  border: 1px solid #fee2e2 !important;
+  color: #ff5757 !important;
+  /* Jaskrawy koralowy dla czytelności błędu */
+  background-color: rgba(255, 87, 87, 0.12) !important;
+  /* Przezroczyste ciemnoczerwone tło */
+  border: 1px solid rgba(255, 87, 87, 0.3) !important;
   display: flex !important;
-  align-items: flex-start !important;
+  align-items: center !important;
   gap: 12px !important;
   animation: shake 0.5s cubic-bezier(.36, .07, .19, .97) both !important;
+  border-radius: 18px 18px 18px 4px !important;
 }
 
 .chatbot-scope .message.error .message-text::before {
@@ -260,10 +290,10 @@
   justify-content: center !important;
   min-width: 20px !important;
   height: 20px !important;
-  margin-top: 2px !important;
+  margin-top: 0px !important;
   background-color: transparent !important;
-  border: 1.5px solid var(--error-red) !important;
-  color: var(--error-red) !important;
+  border: 1.5px solid #ff5757 !important;
+  color: #ff5757 !important;
   font-weight: 800 !important;
   font-size: 13px !important;
   border-radius: 50% !important;
@@ -295,26 +325,33 @@
 
 /* --- FOOTER & INPUT --- */
 .chatbot-scope .chat-footer {
-  background-color: #f1f5f9;
+  background-color: transparent !important;
+  /* Usunięcie jasnego paska na dole */
   padding: 15px 22px 25px;
   border-top: 1px solid var(--border-color);
 }
 
+/* Formularz wpisywania wiadomości */
 .chatbot-scope .chat-form {
   display: flex;
   align-items: center;
-  background-color: #ffffff;
+  /* ZMIANA: Nieco ciemniejsze tło, aby odciąć pole od szklanego tła czatu */
+  background-color: rgba(12, 34, 38, 0.6) !important;
   border-radius: 28px;
-  border: 1px solid var(--border-color);
+  /* ZMIANA: Delikatna ramka pasująca do stylu całej aplikacji */
+  border: 1px solid rgba(38, 166, 154, 0.3) !important;
   padding: 4px 6px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
   transition: all 0.2s ease;
 }
 
 .chatbot-scope .chat-form:focus-within {
-  border-color: rgba(59, 130, 246, 0.5);
-  box-shadow: 0 0 8px rgba(59, 130, 246, 0.15);
+  /* Podświetlenie na niebieski kolor akcentu podczas pisania */
+  border-color: #2196f3 !important;
+  box-shadow: 0 0 10px rgba(33, 150, 243, 0.3),
+    inset 0 2px 4px rgba(0, 0, 0, 0.3) !important;
 }
+
 
 .chatbot-scope .message-input {
   border: none;
@@ -324,18 +361,27 @@
   width: 100%;
   padding: 0 12px;
   font-size: 0.95rem;
+  color: #ffffff !important;
+  /* Biały tekst użytkownika podczas pisania */
 }
 
+/* Naprawa placeholder'a (tekst "Napisz wiadomość...") na ciemnym tle */
+.chatbot-scope .message-input::placeholder {
+  color: rgba(255, 255, 255, 0.4) !important;
+}
+
+/* Przycisk strzałki wysyłania */
 .chatbot-scope .chat-form button {
   height: 38px;
   width: 38px;
   min-width: 38px;
   border: none;
-  display: none;
+  display: none !important;
   cursor: pointer;
   color: #fff;
   border-radius: 50%;
-  background-color: var(--primary-color);
+  background-color: #2196f3 !important;
+  /* Niebieski turkus dopasowany do reszty */
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
@@ -343,7 +389,7 @@
 }
 
 .chatbot-scope .chat-form .message-input:valid~button {
-  display: flex;
+  display: flex !important;
 }
 
 /*--- MOBILE RESPONSIVENESS --- */
@@ -359,24 +405,17 @@
     opacity: 0 !important;
   }
 
-  .chatbot-scope.show-chatbot .chatbot-toggler {
-    display: none !important;
-  }
-
-  .chatbot-scope.show-chatbot .chatbot-toggler {
-    display: none;
-  }
-
   .chatbot-scope .chatbot-popup {
     right: 0;
     bottom: 0;
     width: 100%;
-    /* Full screen on mobile */
     height: 100dvh;
     max-height: 100dvh;
     border-radius: 0;
     display: flex;
     flex-direction: column;
+    background: #143237 !important;
+    /* Pełne szmaragdowe tło na mobile (bez przezroczystości dla wydajności) */
   }
 
   .chatbot-scope .chat-body {

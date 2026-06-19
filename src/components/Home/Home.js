@@ -1,40 +1,58 @@
 import React, { useEffect, useRef, useState } from 'react';
 import CreateArea from "../CreateArea/CreateArea";
 import Note from "../Note/Note";
-import { getNotes } from '../../services/notes';
-import { deleteItem } from '../../services/notes';
+import { getNotes, deleteItem, updateItem } from '../../services/notes';
 
 function Home(props) {
   const [notes, setNotes] = useState([]);
   const mounted = useRef(true);
-
-  // NOWOŚĆ: Globalny stan kontrolujący, który chatbot jest obecnie otwarty
-  // Może przyjąć wartość: id_notatki (string/number), "create-area" lub null
   const [activeChatId, setActiveChatId] = useState(null);
 
   const userNotes = notes.filter(function (item) {
-    return item.userId == props.currentUserId;
+    return String(item.userId) === String(props.currentUserId);
   });
 
   useEffect(() => {
     mounted.current = true;
-    if (notes.length && !alert) {
-      return;
-    }
     getNotes()
       .then(items => {
         if (mounted.current) {
-          setNotes(items)
+          setNotes(items);
         }
       })
-    return () => mounted.current = false;
-  }, [alert, notes])
+      .catch(error => {
+        console.error("Błąd pobierania notatek:", error);
+      });
+
+    return () => {
+      mounted.current = false;
+    };
+  }, []);
+
+  function addNote(newNote) {
+    setNotes(prevNotes => [...prevNotes, newNote]);
+  }
 
   function deleteNote(id) {
-    deleteItem(id);
+    deleteItem(id).catch(err => console.error("Błąd usuwania wpisu:", err));
+    setNotes(prevNotes => prevNotes.filter(note => note.id !== id));
     if (activeChatId === id) {
       setActiveChatId(null);
     }
+  }
+
+  function editNote(id, updatedData) {
+    setNotes(prevNotes => {
+      return prevNotes.map(note => {
+        if (note.id === id) {
+          return { ...note, ...updatedData };
+        }
+        return note;
+      });
+    });
+    updateItem(id, updatedData).catch(error => {
+      console.error("Błąd podczas aktualizacji notatki na serwerze:", error);
+    });
   }
 
   return (
@@ -43,24 +61,28 @@ function Home(props) {
         userId={props.currentUserId}
         userEmail={props.currentUserEmail}
         userFirstName={props.currentUserFirstName}
+        id="create-area"
         activeChatId={activeChatId}
         setActiveChatId={setActiveChatId}
+        onAdd={addNote}
       />
-
-      {userNotes.map(item => (
-        <Note
-          key={item.id}
-          id={item.id}
-          time={item.time}
-          title={item.title}
-          content={item.content}
-          userEmail={item.userEmail}
-          userFirstName={item.firstName}
-          onDelete={deleteNote}
-          activeChatId={activeChatId}
-          setActiveChatId={setActiveChatId}
-        />
-      ))}
+      <div className="notes-container">
+        {userNotes.map(item => (
+          <Note
+            key={item.id}
+            id={item.id}
+            time={item.time}
+            title={item.title}
+            content={item.content}
+            userEmail={item.userEmail}
+            userFirstName={item.firstName}
+            onDelete={deleteNote}
+            onEdit={editNote}
+            activeChatId={activeChatId}
+            setActiveChatId={setActiveChatId}
+          />
+        ))}
+      </div>
     </div>
   );
 }
