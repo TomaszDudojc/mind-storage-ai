@@ -185,7 +185,6 @@ form.create-note textarea,
   margin-top: 5px;
   font-family: inherit;
   transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
-
 }
 
 form.create-note input:focus,
@@ -379,7 +378,7 @@ form.create-note:hover,
 
 .author {
   color: rgba(255, 255, 255, 0.35) !important;
-  font-size: 12px !important;
+  font-size: 14px !important;
   text-align: right;
   margin-top: 8px;
   margin-bottom: 15px;
