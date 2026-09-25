@@ -17,6 +17,33 @@
       "content": "„Szybki test systemu: sztuczna inteligencja przeżyła pierwsze spotkanie ze mną, więc oficjalnie uznaję nas za zgrany duet! ;)”",
       "userEmail": "ola@com",
       "firstName": "Ola"
+    },
+    {
+      "id": "6fcc",
+      "userId": "8f59",
+      "time": "23.09.2026, 16:01:44",
+      "title": "a",
+      "content": "aaaa",
+      "userEmail": "ola@com",
+      "firstName": "Ola"
+    },
+    {
+      "id": "7526",
+      "userId": "8f59",
+      "time": "23.09.2026, 16:01:50",
+      "title": "b",
+      "content": "b",
+      "userEmail": "ola@com",
+      "firstName": "Ola"
+    },
+    {
+      "id": "4d74",
+      "userId": "deb0",
+      "time": "24.09.2026, 08:50:18",
+      "title": "poierwsze logowanie",
+      "content": "przebiegło nadzwyczaj sprawnie.\nto dobra wiadomość!",
+      "userEmail": "tomek@com",
+      "firstName": "Tomek"
     }
   ],
   "users": [
@@ -25,6 +52,12 @@
       "firstName": "Ola",
       "email": "ola@com",
       "hashedPassword": "$2a$10$rwI.jKbsPs8rJQST0tEZR.duLjJbvraj5OdbDZrLnoo79Aao.fWFS"
+    },
+    {
+      "id": "deb0",
+      "firstName": "Tomek",
+      "email": "tomek@com",
+      "hashedPassword": "$2a$10$WM6.GaszXSHt5fXuzBOewOt.DdsqPrIJZl2Fz/STVGYNEat.vXJ/a"
     }
   ]
 }

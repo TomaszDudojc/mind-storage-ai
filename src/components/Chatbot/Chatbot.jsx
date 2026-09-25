@@ -4,17 +4,12 @@ import ChatForm from "./ChatForm";
 import ChatMessage from "./ChatMessage";
 import './Chatbot.css';
 
-const apiVersion = "gemini-flash-latest";
-
-const getApiKey = () => {
-    if (typeof import.meta !== 'undefined' && import.meta.env) {
-        return import.meta.env.VITE_API_KEY;
-    }
-    return process.env.REACT_APP_API_KEY || null;
-};
-
-const apiKey = getApiKey();
-const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${apiVersion}:streamGenerateContent?alt=sse`;
+//const apiUrl = "/api/chat"; // An endpoint on your backend
+//const apiUrl = "http://localhost:5001/api/chat"; //  This immediately bypasses the proxy issue!
+// 1. You define the port at the very top of the file in a single, easily accessible place.
+const CHAT_PORT = "5001";
+// 2. You build a dynamic path using this variable
+const apiUrl = `http://localhost:${CHAT_PORT}/api/chat`;
 
 const Chatbot = ({ id, activeChatId, setActiveChatId, noteContext }) => {
     const [chatHistory, setChatHistory] = useState([]);
@@ -59,8 +54,6 @@ const Chatbot = ({ id, activeChatId, setActiveChatId, noteContext }) => {
     }, [isThisChatOpen]);
 
     const generateBotResponse = async (history) => {
-        let accumulatedText = "";
-
         const updateHistory = (text, isError = false) => {
             setChatHistory((prev) => {
                 const lastMsgIndex = prev.length - 1;
@@ -78,10 +71,7 @@ const Chatbot = ({ id, activeChatId, setActiveChatId, noteContext }) => {
 
         const requestOptions = {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "x-goog-api-key": apiKey
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ contents: formattedHistory })
         };
 
@@ -91,26 +81,47 @@ const Chatbot = ({ id, activeChatId, setActiveChatId, noteContext }) => {
                 const data = await response.json();
                 throw new Error(data.error.message || "Something went wrong!");
             }
-
+            // Handle data streaming
             const reader = response.body.getReader();
             const decoder = new TextDecoder();
+            let buffer = "";
+            // Tworzymy lokalny akumulator tekstowy dedykowany dla tej pętli,
+            // aby odciąć asynchroniczne opóźnienia hooka useState w React.
+            // TA ZMIENNA JEST KLUCZEM: Zapamiętuje każdą najmniejszą nową cząstkę tekstu 
+            // i buduje pełne zdanie od zera, całkowicie ignorując szatkowanie pakietów przez sieć.
+            let fullResponseText = "";
 
             while (true) {
                 const { value, done } = await reader.read();
                 if (done) break;
 
-                const chunk = decoder.decode(value, { stream: true });
-                const lines = chunk.split("\n");
+                buffer += decoder.decode(value, { stream: true });
+                const lines = buffer.split("\n");
+                buffer = lines.pop();
 
                 for (const line of lines) {
                     if (line.startsWith("data: ")) {
                         try {
                             const json = JSON.parse(line.substring(6));
+
+                            // Pobieramy nadesłany fragment tekstu
                             const textFragment = json.candidates[0].content.parts[0].text;
 
                             if (textFragment) {
-                                accumulatedText += textFragment;
-                                const cleanedText = accumulatedText.replace(/\*\* (.*?)\*\*/g, "$1").trim();
+                                // Sprawdzamy, czy nadesłany tekst to nowy fragment (delta), czy pełny ciąg.
+                                // Jeśli to tylko mała cząstka (np. "ąbie"), doklejamy ją do całości.
+                                if (!fullResponseText.endsWith(textFragment)) {
+                                    if (textFragment.startsWith(fullResponseText)) {
+                                        // Jeśli Google wysłało narastający tekst, nadpisujemy nim całość
+                                        fullResponseText = textFragment;
+                                    } else {
+                                        // W standardowym przypadku po prostu doklejamy nowe słowo
+                                        fullResponseText += textFragment;
+                                    }
+                                }
+                                // Czyścimy formatowanie Markdown Twoim poprawionym regexem
+                                const cleanedText = fullResponseText.replace(/\*\*(.*?)\*\*/g, "$1").trim();
+                                // Wypychamy zawsze kompletny, narastający od zera tekst do okna czatu
                                 updateHistory(cleanedText);
                             }
                         } catch (e) {
