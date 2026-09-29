@@ -28,6 +28,7 @@ const Chatbot = ({ id, activeChatId, setActiveChatId, noteContext }) => {
         if (isThisChatOpen && noteContext) {
             const userName = noteContext.userName || "Użytkowniku";
             const systemPrompt = {
+                id: crypto.randomUUID(),
                 role: "user",
                 text: `Jesteś profesjonalnym i empatycznym Coachem Rozwoju Osobistego.Rozmawiasz z użytkownikiem o imieniu: ${userName}.
                 Użytkownik otworzył właśnie swój wpis z pamiętnika. 
@@ -63,7 +64,7 @@ const Chatbot = ({ id, activeChatId, setActiveChatId, noteContext }) => {
                     return newHistory;
                 }
                 const filtered = prev.filter((msg) => msg.text !== "Myślę...");
-                return [...filtered, { role: "model", text, isError }];
+                return [...filtered, { id: crypto.randomUUID(), role: "model", text, isError }];
             });
         };
 
@@ -173,9 +174,8 @@ const Chatbot = ({ id, activeChatId, setActiveChatId, noteContext }) => {
                             }}
                         />
                     )}
-
-                    {visibleHistory.map((chat, index) => (
-                        <ChatMessage key={index} chat={chat} />
+                    {visibleHistory.map((chat) => (
+                        <ChatMessage key={chat.id} chat={chat} />
                     ))}
                 </div>
 

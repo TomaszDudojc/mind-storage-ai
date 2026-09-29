@@ -44,6 +44,24 @@
       "content": "przebiegło nadzwyczaj sprawnie.\nto dobra wiadomość!",
       "userEmail": "tomek@com",
       "firstName": "Tomek"
+    },
+    {
+      "id": "a5d0",
+      "userId": "803f",
+      "time": "25.09.2026, 09:55:46",
+      "title": "pogoda na dzisiaj",
+      "content": "Deszcz za oknem stuka, puka,\nMój kot przez szybę juka.\nParasol gdzieś poszedł spać,\nDziś na kanapie muszę trwać!",
+      "userEmail": "ola@com",
+      "firstName": "Ola"
+    },
+    {
+      "id": "d84c",
+      "userId": "803f",
+      "time": "29.09.2026, 09:21:52",
+      "title": "są już plany!",
+      "content": "Oto 5 największych atrakcji Gdańska:\n\n1.  Długi Targ: Serce, historia, uroda.\n2.  Bazylika Mariacka: Imponująca, gotycka, wieża.\n3.  Fontanna Neptuna: Ikona, legenda, fotografia.\n4.  Żuraw Gdański: Symbol, port, historia.\n5.  Europejskie Centrum Solidarności: Wolność, walka, lekcja.\n",
+      "userEmail": "ola@com",
+      "firstName": "Ola"
     }
   ],
   "users": [
