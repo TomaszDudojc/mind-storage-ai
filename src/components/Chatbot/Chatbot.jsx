@@ -10,6 +10,7 @@ import './Chatbot.css';
 const CHAT_PORT = "5001";
 // 2. You build a dynamic path using this variable
 const apiUrl = `http://localhost:${CHAT_PORT}/api/chat`;
+const LOADING_TEXT = "Myślę...";
 
 const Chatbot = ({ id, activeChatId, setActiveChatId, noteContext }) => {
     const [chatHistory, setChatHistory] = useState([]);
@@ -60,10 +61,10 @@ const Chatbot = ({ id, activeChatId, setActiveChatId, noteContext }) => {
                 const lastMsgIndex = prev.length - 1;
                 if (!isError && lastMsgIndex >= 0 && prev[lastMsgIndex].role === "model" && !prev[lastMsgIndex].isError) {
                     const newHistory = [...prev];
-                    newHistory[lastMsgIndex] = { ...newHistory[lastMsgIndex], text };
+                    newHistory[lastMsgIndex] = { ...newHistory[lastMsgIndex], text, isLoading: false };
                     return newHistory;
                 }
-                const filtered = prev.filter((msg) => msg.text !== "Myślę...");
+                const filtered = prev.filter((msg) => !msg.isLoading);
                 return [...filtered, { id: crypto.randomUUID(), role: "model", text, isError }];
             });
         };
@@ -184,6 +185,7 @@ const Chatbot = ({ id, activeChatId, setActiveChatId, noteContext }) => {
                         chatHistory={chatHistory}
                         setChatHistory={setChatHistory}
                         generateBotResponse={generateBotResponse}
+                        loadingText={LOADING_TEXT}
                     />
                 </div>
             </div>
