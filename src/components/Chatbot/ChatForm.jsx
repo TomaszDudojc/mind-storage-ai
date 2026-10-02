@@ -1,10 +1,11 @@
 import { useRef } from "react";
 
-const ChatForm = ({ chatHistory, setChatHistory, generateBotResponse, loadingText }) => {
+const ChatForm = ({ chatHistory, setChatHistory, generateBotResponse, loadingText, isGenerating }) => {
     const inputRef = useRef();
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
+        if (isGenerating) return;
         const userMessage = inputRef.current.value.trim();
         if (!userMessage) return;
         inputRef.current.value = "";
@@ -23,8 +24,8 @@ const ChatForm = ({ chatHistory, setChatHistory, generateBotResponse, loadingTex
 
     return (
         <form className="chat-form" onSubmit={handleFormSubmit}>
-            <input ref={inputRef} type="text" placeholder="Wiadomość..." className="message-input" required />
-            <button className="material-symbols-rounded">arrow_upward</button>
+            <input ref={inputRef} type="text" placeholder="Wiadomość..." className="message-input" disabled={isGenerating} required />
+            <button className="material-symbols-rounded" disabled={isGenerating}>arrow_upward</button>
         </form>
     );
 };

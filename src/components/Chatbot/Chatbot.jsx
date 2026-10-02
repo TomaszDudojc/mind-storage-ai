@@ -14,6 +14,7 @@ const LOADING_TEXT = "Myślę...";
 
 const Chatbot = ({ id, activeChatId, setActiveChatId, noteContext }) => {
     const [chatHistory, setChatHistory] = useState([]);
+    const [isGenerating, setIsGenerating] = useState(false);
     const chatBodyRef = useRef();
     const isThisChatOpen = activeChatId === id;
 
@@ -51,11 +52,14 @@ const Chatbot = ({ id, activeChatId, setActiveChatId, noteContext }) => {
             generateBotResponse([systemPrompt]);
         } else if (!isThisChatOpen) {
             setChatHistory([]);
+            // DODANO: Resetowanie flagi generowania przy zamykaniu czatu
+            setIsGenerating(false);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isThisChatOpen]);
 
     const generateBotResponse = async (history) => {
+        setIsGenerating(true);
         const updateHistory = (text, isError = false) => {
             setChatHistory((prev) => {
                 const lastMsgIndex = prev.length - 1;
@@ -138,6 +142,8 @@ const Chatbot = ({ id, activeChatId, setActiveChatId, noteContext }) => {
             }
         } catch (error) {
             updateHistory(error.message, true);
+        } finally {
+            setIsGenerating(false);
         }
     };
 
@@ -190,6 +196,7 @@ const Chatbot = ({ id, activeChatId, setActiveChatId, noteContext }) => {
                         setChatHistory={setChatHistory}
                         generateBotResponse={generateBotResponse}
                         loadingText={LOADING_TEXT}
+                        isGenerating={isGenerating}
                     />
                 </div>
             </div>
