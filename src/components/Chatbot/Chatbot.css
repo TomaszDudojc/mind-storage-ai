@@ -352,7 +352,7 @@
     inset 0 2px 4px rgba(0, 0, 0, 0.3) !important;
 }
 
-
+/*
 .chatbot-scope .message-input {
   border: none;
   outline: none;
@@ -362,6 +362,21 @@
   padding: 0 12px;
   font-size: 0.95rem;
   color: #ffffff !important;
+  /* Biały tekst użytkownika podczas pisania
+} */
+
+.chatbot-scope .message-input {
+  border: none;
+  outline: none;
+  background: none;
+  height: 45px;/* ZMIANA: Stała wysokość początkowa zamiast min-height */
+  width: 100%;
+  padding: 12px 12px;/* ZMIANA: Dopełnienie góra/dół dla równego tekstu wielolinijkowego */
+  font-size: 0.95rem;
+  resize: none;/* NOWE: Blokuje ręczne rozciąganie pola myszką przez użytkownika */
+  font-family: inherit; /* NOWE: Wymusza na textarea dziedziczenie czcionki Inter */
+  overflow-y: hidden; /* NOWE: Całkowicie ukrywa pionowy pasek suwaka w polu wpisywania */
+   color: #ffffff !important;
   /* Biały tekst użytkownika podczas pisania */
 }
 
