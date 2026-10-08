@@ -23,8 +23,9 @@ app.post('/login', async (req, res) => {
     if (!user) {
       return res.json({ error: 'user_not_found' });
     }
+    
+    const isPasswordValid = await bcrypt.compare(password, user.hashedPassword);
 
-    const isPasswordValid = bcrypt.compareSync(password, user.hashedPassword);
     if (!isPasswordValid) {
       return res.json({ error: 'wrong_password' });
     }
@@ -48,9 +49,8 @@ app.post('/register', async (req, res) => {
     if (existingUsers.length > 0) {
       return res.json({ error: 'email_taken' });
     }
-
-    const salt = bcrypt.genSaltSync(10);
-    const hashedPassword = bcrypt.hashSync(password, salt);
+    
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     const saveResponse = await fetch('http://localhost:3333/users', {
       method: 'POST',

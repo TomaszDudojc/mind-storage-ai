@@ -76,6 +76,12 @@
       "firstName": "Tomek",
       "email": "tomek@com",
       "hashedPassword": "$2a$10$WM6.GaszXSHt5fXuzBOewOt.DdsqPrIJZl2Fz/STVGYNEat.vXJ/a"
+    },
+    {
+      "id": "836d",
+      "firstName": "Adam",
+      "email": "adam@com",
+      "hashedPassword": "$2a$10$lWjqcGEHZ5dzu3p495CFC.//io7c3RDTajYZYojNzDI9hnBsiWNk."
     }
   ]
 }
