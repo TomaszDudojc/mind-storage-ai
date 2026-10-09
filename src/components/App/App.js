@@ -34,7 +34,8 @@ function App() {
       <Header isLogged="true" />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home currentUserFirstName={loggedUserFirstName} currentUserId={loggedUserId} currentUserEmail={loggedUserEmail} />} />
+          {/*<Route path="/" element={<Home currentUserFirstName={loggedUserFirstName} currentUserId={loggedUserId} currentUserEmail={loggedUserEmail} />} />*/}
+           <Route path="/" element={<Home token={token} currentUserFirstName={loggedUserFirstName} currentUserId={loggedUserId} currentUserEmail={loggedUserEmail} />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/preferences" element={<Preferences />} />
         </Routes>

@@ -62,6 +62,15 @@
       "content": "Oto 5 największych atrakcji Gdańska:\n\n1.  Długi Targ: Serce, historia, uroda.\n2.  Bazylika Mariacka: Imponująca, gotycka, wieża.\n3.  Fontanna Neptuna: Ikona, legenda, fotografia.\n4.  Żuraw Gdański: Symbol, port, historia.\n5.  Europejskie Centrum Solidarności: Wolność, walka, lekcja.\n",
       "userEmail": "ola@com",
       "firstName": "Ola"
+    },
+    {
+      "id": "9d18",
+      "time": "9.10.2026, 10:52:20",
+      "title": "dfzsfszf",
+      "content": "dzsfs",
+      "userEmail": "iwo@com",
+      "firstName": "Iwo",
+      "userId": "3b71"
     }
   ],
   "users": [
@@ -82,6 +91,12 @@
       "firstName": "Adam",
       "email": "adam@com",
       "hashedPassword": "$2a$10$lWjqcGEHZ5dzu3p495CFC.//io7c3RDTajYZYojNzDI9hnBsiWNk."
+    },
+    {
+      "id": "3b71",
+      "firstName": "Iwo",
+      "email": "iwo@com",
+      "hashedPassword": "$2a$10$JqhXfp.LBBVoODs59ifVHeho1IAXu1SxGAGkMZ7gbRPAGS1nIUwXO"
     }
   ]
 }

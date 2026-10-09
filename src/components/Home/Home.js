@@ -7,19 +7,28 @@ function Home(props) {
   const [notes, setNotes] = useState([]);
   const mounted = useRef(true);
   const [activeChatId, setActiveChatId] = useState(null);
-
-  const userNotes = notes.filter(function (item) {
-    return String(item.userId) === String(props.currentUserId);
-  });
-
+  /*
+    const userNotes = notes.filter(function (item) {
+      return String(item.userId) === String(props.currentUserId);
+    });
+  */
   useEffect(() => {
     mounted.current = true;
-    getNotes()
+    getNotes(props.token)
       .then(items => {
         if (mounted.current) {
-          setNotes(items);
+          // DIAGNOSTYKA: Sprawdzamy w konsoli przeglądarki, co dokładnie przyszło z backendu
+          console.log("Dane odebrane z serwera przez getNotes:", items);
+
+          if (Array.isArray(items)) {
+            setNotes(items);
+          } else {
+            console.error("Serwer zamiast tablicy notatek zwrócił obiekt błędu:", items);
+            setNotes([]); // Bezpieczna pusta tablica chroniąca przed awarią .map
+          }
         }
       })
+
       .catch(error => {
         console.error("Błąd pobierania notatek:", error);
       });
@@ -29,12 +38,16 @@ function Home(props) {
     };
   }, []);
 
+
+
+
   function addNote(newNote) {
     setNotes(prevNotes => [...prevNotes, newNote]);
   }
 
   function deleteNote(id) {
-    deleteItem(id).catch(err => console.error("Błąd usuwania wpisu:", err));
+    //deleteItem(id).catch(err => console.error("Błąd usuwania wpisu:", err));
+    deleteItem(id, props.token).catch(err => console.error("Błąd usuwania wpisu:", err)); // Dodano props.token
     setNotes(prevNotes => prevNotes.filter(note => note.id !== id));
     if (activeChatId === id) {
       setActiveChatId(null);
@@ -50,7 +63,9 @@ function Home(props) {
         return note;
       });
     });
-    updateItem(id, updatedData).catch(error => {
+
+    //updateItem(id, updatedData).catch(error => {
+    updateItem(id, updatedData, props.token).catch(error => { // Dodano props.token
       console.error("Błąd podczas aktualizacji notatki na serwerze:", error);
     });
   }
@@ -58,6 +73,7 @@ function Home(props) {
   return (
     <div>
       <CreateArea
+        token={props.token} // Dodano przekazywanie tokenu do komponentu CreateArea
         userId={props.currentUserId}
         userEmail={props.currentUserEmail}
         userFirstName={props.currentUserFirstName}
@@ -67,7 +83,7 @@ function Home(props) {
         onAdd={addNote}
       />
       <div className="notes-container">
-        {userNotes.map(item => (
+        {notes.map(item => (
           <Note
             key={item.id}
             id={item.id}
