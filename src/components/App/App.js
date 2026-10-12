@@ -1,4 +1,3 @@
-import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Dashboard from '../Dashboard/Dashboard';
 import Login from '../Login/Login';
@@ -33,8 +32,7 @@ function App() {
       <Toaster position="bottom-left" reverseOrder={false} />
       <Header isLogged="true" />
       <BrowserRouter>
-        <Routes>
-          {/*<Route path="/" element={<Home currentUserFirstName={loggedUserFirstName} currentUserId={loggedUserId} currentUserEmail={loggedUserEmail} />} />*/}
+        <Routes>          
            <Route path="/" element={<Home token={token} currentUserFirstName={loggedUserFirstName} currentUserId={loggedUserId} currentUserEmail={loggedUserEmail} />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/preferences" element={<Preferences />} />

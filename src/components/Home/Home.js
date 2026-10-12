@@ -7,11 +7,7 @@ function Home(props) {
   const [notes, setNotes] = useState([]);
   const mounted = useRef(true);
   const [activeChatId, setActiveChatId] = useState(null);
-  /*
-    const userNotes = notes.filter(function (item) {
-      return String(item.userId) === String(props.currentUserId);
-    });
-  */
+
   useEffect(() => {
     mounted.current = true;
     getNotes(props.token)
@@ -24,7 +20,13 @@ function Home(props) {
             setNotes(items);
           } else {
             console.error("Serwer zamiast tablicy notatek zwrócił obiekt błędu:", items);
-            setNotes([]); // Bezpieczna pusta tablica chroniąca przed awarią .map
+            // Jeśli serwer zwrócił błąd autoryzacji (np. wygasły token), czyścimy sesję
+            if (items && (items.error === 'unauthorized' || items.status === 401)) {
+              localStorage.clear();
+              window.location.reload(); // Odświeżenie przeniesie użytkownika do ekranu logowania
+            } else {
+              setNotes([]); // Bezpieczna pusta tablica chroniąca przed awarią .map
+            }
           }
         }
       })
@@ -36,17 +38,13 @@ function Home(props) {
     return () => {
       mounted.current = false;
     };
-  }, []);
-
-
-
+  }, [props.token]);
 
   function addNote(newNote) {
     setNotes(prevNotes => [...prevNotes, newNote]);
   }
 
   function deleteNote(id) {
-    //deleteItem(id).catch(err => console.error("Błąd usuwania wpisu:", err));
     deleteItem(id, props.token).catch(err => console.error("Błąd usuwania wpisu:", err)); // Dodano props.token
     setNotes(prevNotes => prevNotes.filter(note => note.id !== id));
     if (activeChatId === id) {
@@ -64,7 +62,6 @@ function Home(props) {
       });
     });
 
-    //updateItem(id, updatedData).catch(error => {
     updateItem(id, updatedData, props.token).catch(error => { // Dodano props.token
       console.error("Błąd podczas aktualizacji notatki na serwerze:", error);
     });
