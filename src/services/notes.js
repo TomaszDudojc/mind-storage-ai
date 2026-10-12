@@ -1,6 +1,8 @@
-export function getNotes(token) {
-  return fetch('http://localhost:8080/notes', {
-    headers: { 'Authorization': `Bearer ${token}` }    
+import { AUTH_API_URL } from '../config';
+
+export function getNotes(token) {  
+  return fetch(`${AUTH_API_URL}/notes`, {
+    headers: { 'Authorization': `Bearer ${token}` }
   })
     .then(async response => {
       const data = await response.json();
@@ -12,8 +14,8 @@ export function getNotes(token) {
     });
 }
 
-export function setItem(token, time, title, content, userEmail, firstName) {
-  return fetch('http://localhost:8080/notes', {
+export function setItem(token, time, title, content, userEmail, firstName) {  
+  return fetch(`${AUTH_API_URL}/notes`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -23,15 +25,15 @@ export function setItem(token, time, title, content, userEmail, firstName) {
   }).then(data => data.json())
 }
 
-export function deleteItem(id, token) {
-  return fetch('http://localhost:8080/notes/' + id, {
+export function deleteItem(id, token) {  
+  return fetch(`${AUTH_API_URL}/notes/` + id, {
     method: 'DELETE',
     headers: { 'Authorization': `Bearer ${token}` }
   }).then(data => data.json())
 }
 
-export function updateItem(id, updatedData, token) {
-  return fetch('http://localhost:8080/notes/' + id, {
+export function updateItem(id, updatedData, token) {  
+  return fetch(`${AUTH_API_URL}/notes/` + id, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',

@@ -4,17 +4,18 @@ import LoginIcon from '@mui/icons-material/Login';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import CheckIcon from '@mui/icons-material/Check';
 import AddIcon from '@mui/icons-material/Add';
+import { AUTH_API_URL } from '../../config';
 
-async function loginUser(credentials) {
-  return fetch('http://localhost:8080/login', {
+async function loginUser(credentials) {  
+  return fetch(`${AUTH_API_URL}/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(credentials)
   }).then(data => data.json());
 }
 
-async function registerUser(credentials) {
-  return fetch('http://localhost:8080/register', {
+async function registerUser(credentials) {  
+  return fetch(`${AUTH_API_URL}/register`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(credentials)

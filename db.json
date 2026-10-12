@@ -89,6 +89,33 @@
       "userEmail": "adam@com",
       "firstName": "Adam",
       "userId": "836d"
+    },
+    {
+      "id": "d828",
+      "time": "12.10.2026, 09:18:16",
+      "title": "dfasd",
+      "content": "asdfdasfsa",
+      "userEmail": "zenek@com",
+      "firstName": "Zenek",
+      "userId": "cd95"
+    },
+    {
+      "id": "bae6",
+      "time": "12.10.2026, 09:18:23",
+      "title": "bbbbbcccc",
+      "content": "dfasdfasfasdfas",
+      "userEmail": "zenek@com",
+      "firstName": "Zenek",
+      "userId": "cd95"
+    },
+    {
+      "id": "3568",
+      "time": "12.10.2026, 09:23:27",
+      "title": "wyprawa w góry!!!",
+      "content": "ambitny plan na 5 dni:\n\n1.  Kozi Wierch (2291 m n.p.m.): Orla Perć, łańcuchy, ekspozycja.\n2.  Rysy (2499 m n.p.m.) (od PL): Najwyższy, łańcuchy, wymagający.\n3.  Świnica (2301 m n.p.m.): Widokowy, łańcuchy, stromy.\n4.  Kościelec (2155 m n.p.m.): Skalny, ekspozycja, bez ułatwień.\n5.  Jahňací štít (2230 m n.p.m.): Słowacja, widoki, kondycja.",
+      "userEmail": "ola@com",
+      "firstName": "Ola",
+      "userId": "803f"
     }
   ],
   "users": [
@@ -115,6 +142,12 @@
       "firstName": "Iwo",
       "email": "iwo@com",
       "hashedPassword": "$2a$10$JqhXfp.LBBVoODs59ifVHeho1IAXu1SxGAGkMZ7gbRPAGS1nIUwXO"
+    },
+    {
+      "id": "cd95",
+      "firstName": "Zenek",
+      "email": "zenek@com",
+      "hashedPassword": "$2a$10$1sKtqOsnEkdyuHH/90l7pe/LXjTLVti2e7vvAz5yWtlktJQU7JGza"
     }
   ]
 }
