@@ -49,9 +49,12 @@ export default function Login({ setToken }) {
       toast.error('Niepoprawne hasło! 🔒', { className: 'custom-toast custom-toast-delete' });
     }
     else if (data.token && data.user) {
-      localStorage.setItem('loggedUserEmail', JSON.stringify(data.user.email));
-      localStorage.setItem('loggedUserId', JSON.stringify(data.user.id));
-      localStorage.setItem('loggedUserFirstName', JSON.stringify(data.user.firstName));
+      // Zapis całego obiektu użytkownika pod jednym kluczem 'user'
+      localStorage.setItem('user', JSON.stringify({
+        id: data.user.id,
+        email: data.user.email,
+        firstName: data.user.firstName
+      }));
 
       setToken({ token: data.token });
 
