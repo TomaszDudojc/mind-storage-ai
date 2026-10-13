@@ -6,20 +6,30 @@ import CheckIcon from '@mui/icons-material/Check';
 import AddIcon from '@mui/icons-material/Add';
 import { AUTH_API_URL } from '../../config';
 
-async function loginUser(credentials) {  
-  return fetch(`${AUTH_API_URL}/login`, {
+async function loginUser(credentials) {
+  const response = await fetch(`${AUTH_API_URL}/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(credentials)
-  }).then(data => data.json());
+  });
+
+  if (!response.ok && response.status !== 400 && response.status !== 401) {
+    throw new Error(`Błąd serwera podczas logowania: ${response.status}`);
+  }
+  return response.json();
 }
 
-async function registerUser(credentials) {  
-  return fetch(`${AUTH_API_URL}/register`, {
+async function registerUser(credentials) {
+  const response = await fetch(`${AUTH_API_URL}/register`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(credentials)
-  }).then(data => data.json());
+  });
+
+  if (!response.ok && response.status !== 400) {
+    throw new Error(`Błąd serwera podczas rejestracji: ${response.status}`);
+  }
+  return response.json();
 }
 
 export default function Login({ setToken }) {

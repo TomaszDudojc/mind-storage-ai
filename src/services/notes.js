@@ -1,44 +1,62 @@
 import { AUTH_API_URL } from '../config';
 
-export function getNotes(token) {  
-  return fetch(`${AUTH_API_URL}/notes`, {
+export async function getNotes(token) {
+  const response = await fetch(`${AUTH_API_URL}/notes`, {
     headers: { 'Authorization': `Bearer ${token}` }
-  })
-    .then(async response => {
-      const data = await response.json();
-      if (!response.ok) {
-        // Jeśli serwer zwrócił błąd (np. 401), dorzucamy informację o statusie do obiektu
-        return { error: data.error || 'unauthorized', status: response.status };
-      }
-      return data;
-    });
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    // Zachowujemy obiekt dla autowylogowania przy wygaśnięciu sesji (401)
+    if (response.status === 401) {
+      return { error: data.error || 'unauthorized', status: response.status };
+    }
+    throw new Error(`Błąd pobierania notatek: ${response.status}`);
+  }
+  return data;
 }
 
-export function setItem(token, time, title, content, userEmail, firstName) {  
-  return fetch(`${AUTH_API_URL}/notes`, {
+export async function setItem(token, time, title, content, userEmail, firstName) {
+  const response = await fetch(`${AUTH_API_URL}/notes`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     },
-    body: JSON.stringify({ time, title, content, userEmail, firstName }) // userId zostanie nadane przez serwer z JWT
-  }).then(data => data.json())
+    body: JSON.stringify({ time, title, content, userEmail, firstName })
+  });
+
+  if (!response.ok) {
+    throw new Error(`Błąd dodawania notatki: ${response.status}`);
+  }
+  return response.json();
 }
 
-export function deleteItem(id, token) {  
-  return fetch(`${AUTH_API_URL}/notes/` + id, {
+export async function deleteItem(id, token) {
+  const response = await fetch(`${AUTH_API_URL}/notes/` + id, {
     method: 'DELETE',
     headers: { 'Authorization': `Bearer ${token}` }
-  }).then(data => data.json())
+  });
+
+  if (!response.ok) {
+    throw new Error(`Błąd usuwania notatki: ${response.status}`);
+  }
+  return response.json();
 }
 
-export function updateItem(id, updatedData, token) {  
-  return fetch(`${AUTH_API_URL}/notes/` + id, {
+export async function updateItem(id, updatedData, token) {
+  const response = await fetch(`${AUTH_API_URL}/notes/` + id, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     },
     body: JSON.stringify(updatedData)
-  }).then(data => data.json());
+  });
+
+  if (!response.ok) {
+    throw new Error(`Błąd aktualizacji notatki: ${response.status}`);
+  }
+  return response.json();
 }

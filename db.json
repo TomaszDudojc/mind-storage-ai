@@ -148,6 +148,12 @@
       "firstName": "Zenek",
       "email": "zenek@com",
       "hashedPassword": "$2a$10$1sKtqOsnEkdyuHH/90l7pe/LXjTLVti2e7vvAz5yWtlktJQU7JGza"
+    },
+    {
+      "id": "b6fa",
+      "firstName": "Ewa",
+      "email": "ewa@com",
+      "hashedPassword": "$2a$10$ZU.ndy8Eb8feggzrfW7dkuSJtc9A.Eki2kXf3kEpK8Rzjn20gQ6YK"
     }
   ]
 }
