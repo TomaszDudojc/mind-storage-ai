@@ -1,19 +1,15 @@
 const express = require('express');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
-//const crypto = require('crypto');
+require('dotenv').config(); // Ładowanie pliku .env na samym początku
 const jwt = require('jsonwebtoken'); // Zastąpiono crypto przez jsonwebtoken//
 const app = express();
 const port = 8080;
-const JWT_SECRET = 'twoj_bardzo_tajny_klucz_jwt'; // Klucz do podpisywania tokenów
+const JWT_SECRET = process.env.JWT_SECRET; // Bezpieczne pobranie klucza z systemu
 
 app.use(cors());
 app.use(express.json());
-/*
-function generateSecureToken() {
-  return crypto.randomBytes(32).toString('hex');
-}
-*/
+
 // Middleware sprawdzający i dekodujący token JWT
 function requireAuth(req, res, next) {
   const token = req.headers.authorization?.replace('Bearer ', '');
