@@ -55,6 +55,9 @@ const Chatbot = ({ id, activeChatId, setActiveChatId, noteContext }) => {
             // DODANO: Resetowanie flagi generowania przy zamykaniu czatu
             setIsGenerating(false);
         }
+        // Specjalnie reagujemy tylko na otwarcie/zamknięcie czatu (isThisChatOpen),
+        // a nie na każdą zmianę treści notatki — chcemy "zdjęcie" notatki
+        // z momentu otwarcia czatu, nie live-update przy każdej literce.
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isThisChatOpen]);
 
