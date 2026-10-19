@@ -1,0 +1,21 @@
+{
+  "users": [
+    {
+      "id": "a6e9",
+      "firstName": "Ola",
+      "email": "ola@com",
+      "hashedPassword": "$2a$10$kQAaAc8dAWy0Gva9U1XYteFEEIX0RS/S8hiok..fjcjus2KCMraCO"
+    }
+  ],
+  "notes": [
+    {
+      "id": "2fe6",
+      "time": "19.10.2026, 11:17:39",
+      "title": "rejestracja i logowanie",
+      "content": "przebiegły pomyślnie, to dobre wieści",
+      "userEmail": "ola@com",
+      "firstName": "Ola",
+      "userId": "a6e9"
+    }
+  ]
+}
