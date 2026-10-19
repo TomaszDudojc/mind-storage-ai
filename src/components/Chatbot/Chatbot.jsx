@@ -4,20 +4,17 @@ import ChatForm from "./ChatForm";
 import ChatMessage from "./ChatMessage";
 import './Chatbot.css';
 
-const apiVersion = "gemini-flash-latest";
-
-const getApiKey = () => {
-    if (typeof import.meta !== 'undefined' && import.meta.env) {
-        return import.meta.env.VITE_API_KEY;
-    }
-    return process.env.REACT_APP_API_KEY || null;
-};
-
-const apiKey = getApiKey();
-const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${apiVersion}:streamGenerateContent?alt=sse`;
+//const apiUrl = "/api/chat"; // An endpoint on your backend
+//const apiUrl = "http://localhost:5001/api/chat"; //  This immediately bypasses the proxy issue!
+// 1. You define the port at the very top of the file in a single, easily accessible place.
+const CHAT_PORT = "5001";
+// 2. You build a dynamic path using this variable
+const apiUrl = `http://localhost:${CHAT_PORT}/api/chat`;
+const LOADING_TEXT = "Myślę...";
 
 const Chatbot = ({ id, activeChatId, setActiveChatId, noteContext }) => {
     const [chatHistory, setChatHistory] = useState([]);
+    const [isGenerating, setIsGenerating] = useState(false);
     const chatBodyRef = useRef();
     const isThisChatOpen = activeChatId === id;
 
@@ -33,6 +30,7 @@ const Chatbot = ({ id, activeChatId, setActiveChatId, noteContext }) => {
         if (isThisChatOpen && noteContext) {
             const userName = noteContext.userName || "Użytkowniku";
             const systemPrompt = {
+                id: crypto.randomUUID(),
                 role: "user",
                 text: `Jesteś profesjonalnym i empatycznym Coachem Rozwoju Osobistego.Rozmawiasz z użytkownikiem o imieniu: ${userName}.
                 Użytkownik otworzył właśnie swój wpis z pamiętnika. 
@@ -41,7 +39,7 @@ const Chatbot = ({ id, activeChatId, setActiveChatId, noteContext }) => {
                 Treść: "${noteContext.content}"
                 Przeanalizuj krótko ten tekst. Odpowiedz bardzo krótko (max 2-3 zdania).
                 BEZWZGLĘDNE WYMAGANIA DOTYCZĄCE FORMATOWANIA:
-                1. ROZPOCZNIJ ODPOWIEDŹ od bardzo ciepłego przywitania użytkownika po imieniu, stosując poprawną polską formę wołacza (np. "Cześć Aniu!", "Witaj Olu!", "Dzień dobry Tomku!").
+                1. ROZPOCZNIJ ODPOWIEDŹ od bardzo ciepłego przywitania użytkownika po imieniu, stosując poprawną polską formę wołacza (np. "Cześć Aniu!", "Witaj Olu!", "Dzień dobry Tomku!") TYLKO JEŚLI jest to absolutnie pierwsza wiadomość w tej rozmowie. Jeśli w historii chatu widać wcześniejszą wymianę zdań, POMIŃ powitanie i przejdź od razu do punktu 3.
                 2. NATYCHMIAST PO POWITANIU wstaw dokładnie dwa znaki nowej linii (podwójny enter / '\n\n').
                 3. Dopiero od nowej linii (w osobnym akapicie) nawiąż bezpośrednio do tego, co napisał, i zadaj jedno głębokie pytanie coachingowe, które skłoni go do refleksji.
     
@@ -54,23 +52,27 @@ const Chatbot = ({ id, activeChatId, setActiveChatId, noteContext }) => {
             generateBotResponse([systemPrompt]);
         } else if (!isThisChatOpen) {
             setChatHistory([]);
+            // DODANO: Resetowanie flagi generowania przy zamykaniu czatu
+            setIsGenerating(false);
         }
+        // Specjalnie reagujemy tylko na otwarcie/zamknięcie czatu (isThisChatOpen),
+        // a nie na każdą zmianę treści notatki — chcemy "zdjęcie" notatki
+        // z momentu otwarcia czatu, nie live-update przy każdej literce.
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isThisChatOpen]);
 
     const generateBotResponse = async (history) => {
-        let accumulatedText = "";
-
+        setIsGenerating(true);
         const updateHistory = (text, isError = false) => {
             setChatHistory((prev) => {
                 const lastMsgIndex = prev.length - 1;
                 if (!isError && lastMsgIndex >= 0 && prev[lastMsgIndex].role === "model" && !prev[lastMsgIndex].isError) {
                     const newHistory = [...prev];
-                    newHistory[lastMsgIndex] = { ...newHistory[lastMsgIndex], text };
+                    newHistory[lastMsgIndex] = { ...newHistory[lastMsgIndex], text, isLoading: false };
                     return newHistory;
                 }
-                const filtered = prev.filter((msg) => msg.text !== "Myślę...");
-                return [...filtered, { role: "model", text, isError }];
+                const filtered = prev.filter((msg) => !msg.isLoading);
+                return [...filtered, { id: crypto.randomUUID(), role: "model", text, isError }];
             });
         };
 
@@ -78,10 +80,7 @@ const Chatbot = ({ id, activeChatId, setActiveChatId, noteContext }) => {
 
         const requestOptions = {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "x-goog-api-key": apiKey
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ contents: formattedHistory })
         };
 
@@ -91,27 +90,52 @@ const Chatbot = ({ id, activeChatId, setActiveChatId, noteContext }) => {
                 const data = await response.json();
                 throw new Error(data.error.message || "Something went wrong!");
             }
-
+            // Handle data streaming
             const reader = response.body.getReader();
             const decoder = new TextDecoder();
+            let buffer = "";
+            // Tworzymy lokalny akumulator tekstowy dedykowany dla tej pętli,
+            // aby odciąć asynchroniczne opóźnienia hooka useState w React.
+            // TA ZMIENNA JEST KLUCZEM: Zapamiętuje każdą najmniejszą nową cząstkę tekstu 
+            // i buduje pełne zdanie od zera, całkowicie ignorując szatkowanie pakietów przez sieć.
+            let fullResponseText = "";
 
             while (true) {
                 const { value, done } = await reader.read();
                 if (done) break;
 
-                const chunk = decoder.decode(value, { stream: true });
-                const lines = chunk.split("\n");
+                buffer += decoder.decode(value, { stream: true });
+                const lines = buffer.split("\n");
+                buffer = lines.pop();
 
                 for (const line of lines) {
                     if (line.startsWith("data: ")) {
                         try {
                             const json = JSON.parse(line.substring(6));
-                            const textFragment = json.candidates[0].content.parts[0].text;
+
+                            // Pobieramy nadesłany fragment tekstu
+                            // Zastosowanie optional chaining (?.) zapobiega wyłączeniu aplikacji przy braku oczekiwanej struktury                            
+                            const textFragment = json.candidates?.[0]?.content?.parts?.[0]?.text;
 
                             if (textFragment) {
-                                accumulatedText += textFragment;
-                                const cleanedText = accumulatedText.replace(/\*\* (.*?)\*\*/g, "$1").trim();
+                                // Sprawdzamy, czy nadesłany tekst to nowy fragment (delta), czy pełny ciąg.
+                                // Jeśli to tylko mała cząstka (np. "ąbie"), doklejamy ją do całości.
+                                if (!fullResponseText.endsWith(textFragment)) {
+                                    if (textFragment.startsWith(fullResponseText)) {
+                                        // Jeśli Google wysłało narastający tekst, nadpisujemy nim całość
+                                        fullResponseText = textFragment;
+                                    } else {
+                                        // W standardowym przypadku po prostu doklejamy nowe słowo
+                                        fullResponseText += textFragment;
+                                    }
+                                }
+                                // Czyścimy formatowanie Markdown Twoim poprawionym regexem
+                                const cleanedText = fullResponseText.replace(/\*\*(.*?)\*\*/g, "$1").trim();
+                                // Wypychamy zawsze kompletny, narastający od zera tekst do okna czatu
                                 updateHistory(cleanedText);
+                            } else if (json.candidates?.[0]?.finishReason === "SAFETY") {
+                                // Jawna informacja dla użytkownika w przypadku zablokowania treści przez filtry
+                                updateHistory("Przepraszam, nie mogę odpowiedzieć na to pytanie.", true);
                             }
                         } catch (e) {
                             continue;
@@ -121,6 +145,8 @@ const Chatbot = ({ id, activeChatId, setActiveChatId, noteContext }) => {
             }
         } catch (error) {
             updateHistory(error.message, true);
+        } finally {
+            setIsGenerating(false);
         }
     };
 
@@ -162,9 +188,8 @@ const Chatbot = ({ id, activeChatId, setActiveChatId, noteContext }) => {
                             }}
                         />
                     )}
-
-                    {visibleHistory.map((chat, index) => (
-                        <ChatMessage key={index} chat={chat} />
+                    {visibleHistory.map((chat) => (
+                        <ChatMessage key={chat.id} chat={chat} />
                     ))}
                 </div>
 
@@ -173,6 +198,8 @@ const Chatbot = ({ id, activeChatId, setActiveChatId, noteContext }) => {
                         chatHistory={chatHistory}
                         setChatHistory={setChatHistory}
                         generateBotResponse={generateBotResponse}
+                        loadingText={LOADING_TEXT}
+                        isGenerating={isGenerating}
                     />
                 </div>
             </div>

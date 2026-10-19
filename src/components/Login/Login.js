@@ -4,21 +4,32 @@ import LoginIcon from '@mui/icons-material/Login';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import CheckIcon from '@mui/icons-material/Check';
 import AddIcon from '@mui/icons-material/Add';
+import { AUTH_API_URL } from '../../config';
 
 async function loginUser(credentials) {
-  return fetch('http://localhost:8080/login', {
+  const response = await fetch(`${AUTH_API_URL}/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(credentials)
-  }).then(data => data.json());
+  });
+
+  if (!response.ok && response.status !== 400 && response.status !== 401) {
+    throw new Error(`Błąd serwera podczas logowania: ${response.status}`);
+  }
+  return response.json();
 }
 
 async function registerUser(credentials) {
-  return fetch('http://localhost:8080/register', {
+  const response = await fetch(`${AUTH_API_URL}/register`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(credentials)
-  }).then(data => data.json());
+  });
+
+  if (!response.ok && response.status !== 400) {
+    throw new Error(`Błąd serwera podczas rejestracji: ${response.status}`);
+  }
+  return response.json();
 }
 
 export default function Login({ setToken }) {
@@ -38,9 +49,12 @@ export default function Login({ setToken }) {
       toast.error('Niepoprawne hasło! 🔒', { className: 'custom-toast custom-toast-delete' });
     }
     else if (data.token && data.user) {
-      localStorage.setItem('loggedUserEmail', JSON.stringify(data.user.email));
-      localStorage.setItem('loggedUserId', JSON.stringify(data.user.id));
-      localStorage.setItem('loggedUserFirstName', JSON.stringify(data.user.firstName));
+      // Zapis całego obiektu użytkownika pod jednym kluczem 'user'
+      localStorage.setItem('user', JSON.stringify({
+        id: data.user.id,
+        email: data.user.email,
+        firstName: data.user.firstName
+      }));
 
       setToken({ token: data.token });
 

@@ -1,4 +1,3 @@
-import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Dashboard from '../Dashboard/Dashboard';
 import Login from '../Login/Login';
@@ -11,12 +10,9 @@ import { Toaster } from 'react-hot-toast';
 
 function App() {
   const { token, setToken } = useToken();
-  const loggedUserFirstNameString = localStorage.getItem('loggedUserFirstName');
-  const loggedUserFirstName = JSON.parse(loggedUserFirstNameString);
-  const loggedUserEmailString = localStorage.getItem('loggedUserEmail');
-  const loggedUserEmail = JSON.parse(loggedUserEmailString);
-  const loggedUserIdString = localStorage.getItem('loggedUserId');
-  const loggedUserId = JSON.parse(loggedUserIdString);
+  // Pobieranie i parsowanie jednego wspólnego obiektu 'user'
+  const userString = localStorage.getItem('user');
+  const user = userString ? JSON.parse(userString) : null;
 
   if (!token) {
     return (
@@ -34,7 +30,14 @@ function App() {
       <Header isLogged="true" />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home currentUserFirstName={loggedUserFirstName} currentUserId={loggedUserId} currentUserEmail={loggedUserEmail} />} />
+          <Route path="/" element={
+            <Home
+              token={token}
+              currentUserFirstName={user?.firstName}
+              currentUserId={user?.id}
+              currentUserEmail={user?.email}
+            />
+          } />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/preferences" element={<Preferences />} />
         </Routes>

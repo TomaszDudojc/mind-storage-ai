@@ -25,7 +25,8 @@ function CreateArea(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setItem(userId, time, title, content, userEmail, userFirstName)
+    //setItem(userId, time, title, content, userEmail, userFirstName)
+    setItem(props.token, time, title, content, userEmail, userFirstName)
       .then((createdNote) => {
         const noteToAdd = createdNote || {
           id: Date.now(),
