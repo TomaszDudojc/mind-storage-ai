@@ -1,4 +1,4 @@
-@import url('https://googleapis.com');
+@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap');
 
 /* ==========================================
    STYLE GLOBALNE - DEEP OCEAN MYŚLI
@@ -9,8 +9,8 @@
   box-sizing: border-box;
 }
 
-html {
-  font-family: "Montserrat", sans-serif;
+html {  
+  font-family: "Inter", sans-serif;
 }
 
 body {
@@ -182,8 +182,8 @@ form.create-note textarea,
   padding: 10px !important;
   color: #ffffff !important;
   font-size: 1.1em;
-  margin-top: 5px;
-  font-family: inherit;
+  margin-top: 5px; 
+  font-family: "Inter", sans-serif;
   transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
 }
 
@@ -407,7 +407,7 @@ form.create-note:hover,
   line-height: 1.2 !important;
   display: block !important;
   overflow: hidden !important;
-  font-family: "Montserrat", sans-serif !important;
+  font-family: "Inter", sans-serif !important;
 }
 
 /* Pola edycji (Textarea wewnątrz aktywnej karty) */
@@ -435,7 +435,7 @@ form.create-note:hover,
   line-height: 1.2 !important;
   display: block !important;
   overflow: hidden !important;
-  font-family: "Montserrat", sans-serif !important;
+  font-family: "Inter", sans-serif !important;
   transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
 }
 
@@ -565,7 +565,7 @@ form.create-note:hover,
 /* Stylizacja wyglądu chmurek powiadomień react-hot-toast */
 /* Stylizacja bazowa dla wszystkich chmurek powiadomień react-hot-toast */
 .custom-toast {
-  font-family: "Montserrat", sans-serif !important;
+  font-family: "Inter", sans-serif !important;
   font-weight: 500 !important;
   border-radius: 12px !important;
   color: #ffffff !important;
