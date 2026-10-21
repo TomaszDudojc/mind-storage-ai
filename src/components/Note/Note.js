@@ -54,12 +54,16 @@ function Note(props) {
           <>
             <p className="time">{props.time}</p>
             <textarea
+              id={`edit-title-${props.id}`}
+              name="edit-title"
               type="text"
               className="edit-title-input"
               value={editTitle}
               onChange={(e) => setEditTitle(e.target.value)}
             />
             <textarea
+              id={`edit-content-${props.id}`}
+              name="edit-content"
               className="edit-content-textarea"
               value={editContent}
               onChange={(e) => setEditContent(e.target.value)}
@@ -80,6 +84,8 @@ function Note(props) {
             <p className="time">{props.time}</p>
             <h1>{props.title}</h1>
             <textarea
+              id={`preview-content-${props.id}`}
+              name="preview-content"
               className="preview-content-textarea"
               value={props.content}
               readOnly

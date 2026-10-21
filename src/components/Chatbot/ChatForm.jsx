@@ -44,6 +44,7 @@ const ChatForm = ({ chatHistory, setChatHistory, generateBotResponse, loadingTex
     return (
         <form className="chat-form" onSubmit={handleFormSubmit}>
             <textarea
+                id="chat-message"
                 ref={inputRef}
                 placeholder="Wiadomość..."
                 className="message-input"
